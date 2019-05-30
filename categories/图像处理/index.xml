@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>图像处理 on 伊卡洛斯</title>
+    <link>https://icaruslucifer.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</link>
+    <description>Recent content in 图像处理 on 伊卡洛斯</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://icaruslucifer.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>二维码识别与定位</title>
+      <link>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</guid>
+      <description>运行环境  python2.7 或 python3.6 依赖的第三方库 opencv-python numpy 安装 sudo pip install opencv-python,numpy  二维码 QRCode 主要由以下部分组成： - 1 - Position Detection Pattern：位于三个角落，可以快速检测二维码位置。 - 2 - Separators：一个单位宽的分割线，提高二维码位置检测的效率。 - 3 - Timing Pattern：黑白相间，用于修正坐标系。 - 4 - Alignment Patterns：提高二维码在失真情况下的识别率。 - 5 - Format Information：格式信息，包含了错误修正级别和掩码图案。 - 6 - Data：真正的数据部分。 - 7 - Error Correction：用于错误修正，和 Data 部分格式相同。
+识别 二维码的识别主要使用第三方，目前开源的比较有名的二维码识别sdk有： zxing，zbar zxing的识别效果比zbar好，识别效果排名：微信&amp;gt;支付宝&amp;gt;zxing&amp;gt;zbar
+ zxing的安装  下载地址：https://github.com/oostendo/python-zxing 下载下来之后需要再下载 jcommander-1.48.jar， 下载地址：http://mvnrepository.com/artifact/com.beust/jcommander/1.48
+下载之后放在目录下： 下面需要打开init.py文件，修改里面的内容
+libs = [&amp;quot;javase.jar&amp;quot;, &amp;quot;core.</description>
+    </item>
+    
+    <item>
+      <title>快速实现人脸识别和语音播报</title>
+      <link>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</guid>
+      <description>主要思路是，通过opencv打开摄像头，获取图片，利用百度AI开放平台的人脸检测接口（事先会在百度后台录入人脸信息），识别出人脸信息，然后利用科大讯飞的在线语音合成接口，将识别到的内容转换成自己想要播放的音频，通过系统api播放音频。
+依赖  python opencv 网络 科大讯飞接口 百度AI接口人脸识别  主要流程  打开摄像头，读取图像
+cap = cv.VideoCapture(0) while(1): ret,frame = cap.read() smallImg = cv.resize(frame, (320, 240), interpolation=cv.INTER_CUBIC) cv.imshow(&amp;quot;capture&amp;quot;,smallImg)  开子线程进行图像的人脸识别
+class MyFaceThread(threading.Thread): def __init__(self,token,callback): super(MyFaceThread, self).__init__() self.token=token self.callback = callback def run(self): while (1): global theImg global theResult lock.acquire() frame = theImg lock.release() if type(frame) != None: try: if frame.size &amp;gt; 0: faceResult = checkFace(self.token, frame) theResult,faceList = showCheckFace(faceResult, frame) self.callback(faceList) except: pass  其中 checkFace为检测人脸</description>
+    </item>
+    
+  </channel>
+</rss>

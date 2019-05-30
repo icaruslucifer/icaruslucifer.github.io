@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="伊卡洛斯">
+  
+  
+  
+  <link rel="prev" href="https://icaruslucifer.github.io/blog/gpu_tensorflow/" />
+  
+  <link rel="canonical" href="https://icaruslucifer.github.io/blog/ros_keng/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           ROS坑 | 伊卡洛斯
+       
+  </title>
+  <meta name="title" content="ROS坑 | 伊卡洛斯">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https://icaruslucifer.github.io"
+    },
+    "articleSection" : "blog",
+    "name" : "ROS坑",
+    "headline" : "ROS坑",
+    "description" : "ROS launch 文件中 param 设置的坑 launch 文件中 param 一般不需要配置类型，但所有参数值都会使用双引号包含，会自动进行类型推导，规则如下（参见 roslaunch/XML/param）
+ 数字带有 &lsquo;.&rsquo; 的是浮点数，其余是整数。 &ldquo;true&rdquo; 和 &ldquo;false&rdquo; 是布尔量，大小写不敏感。 其他所有值都认为是字符串。  其中一个坑就是，如果一个值类型本来是字符串，但是值是数字，那么会自动推导成数字，导致程序解析时无法获取到想要的字符串的问题。
+解决方法，在参数属性中配置 type 字段：
+ str: 字符串 int: 整形 double: 浮点 bool: 布尔量 yaml: yaml 内容  ROS 编写urdf  有时候明明代码编写没问题，但是运行之后显示“No transform form 【A】 to 【B】” 可是尝试以下方式： 这个时候需要看看是不是xml编写不规范，去一些xml格式网站把内容格式化； 安装 sudo apt-get install unicode ； 重启rviz，roscore  ROS 编译含msg的工程不通过 几种方法
+ catkin_make -j1
+ 先单独编译msg包 catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;
+ 先单独编译msg包
+  catkin_make xfuture_msgs_gencpp",
+    "inLanguage" : "en-us",
+    "author" : "伊卡洛斯",
+    "creator" : "伊卡洛斯",
+    "publisher": "伊卡洛斯",
+    "accountablePerson" : "伊卡洛斯",
+    "copyrightHolder" : "伊卡洛斯",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-05-30 17:01:13 &#43;0800 CST",
+    "dateModified" : "2019-05-30 17:01:13 &#43;0800 CST",
+    "url" : "https://icaruslucifer.github.io/blog/ros_keng/",
+    "wordCount" : "61",
+    "keywords" : [ "ROS", "伊卡洛斯"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">ROS坑</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://icaruslucifer.github.io" rel="author">伊卡洛斯</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-05-30 itemprop="datePublished">May 30, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://icaruslucifer.github.io/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/"> 机器人 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="ros-launch-文件中-param-设置的坑">ROS launch 文件中 param 设置的坑</h2>
+
+<p>launch 文件中 param 一般不需要配置类型，但所有参数值都会使用双引号包含，会自动进行类型推导，规则如下（参见 <a href="http://wiki.ros.org/roslaunch/XML/param" rel="nofollow noreferrer" target="_blank">roslaunch/XML/param</a>）</p>
+
+<ol>
+<li>数字带有 &lsquo;.&rsquo; 的是浮点数，其余是整数。</li>
+<li>&ldquo;true&rdquo; 和 &ldquo;false&rdquo; 是布尔量，大小写不敏感。</li>
+<li>其他所有值都认为是字符串。</li>
+</ol>
+
+<p>其中一个坑就是，如果一个值类型本来是字符串，但是值是数字，那么会自动推导成数字，导致程序解析时无法获取到想要的字符串的问题。</p>
+
+<p>解决方法，在参数属性中配置 <code>type</code> 字段：</p>
+
+<ul>
+<li><code>str</code>: 字符串</li>
+<li><code>int</code>: 整形</li>
+<li><code>double</code>: 浮点</li>
+<li><code>bool</code>: 布尔量</li>
+<li><code>yaml</code>: yaml 内容</li>
+</ul>
+
+<h2 id="ros-编写urdf">ROS 编写urdf</h2>
+
+<ul>
+<li>有时候明明代码编写没问题，但是运行之后显示“No transform form 【A】 to 【B】”
+可是尝试以下方式：</li>
+<li>这个时候需要看看是不是xml编写不规范，去一些xml格式网站把内容格式化；</li>
+<li>安装 sudo apt-get install unicode ；</li>
+<li>重启rviz，roscore</li>
+</ul>
+
+<h2 id="ros-编译含msg的工程不通过">ROS 编译含msg的工程不通过</h2>
+
+<p>几种方法</p>
+
+<ol>
+<li><p>catkin_make -j1</p></li>
+
+<li><p>先单独编译msg包
+catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;</p></li>
+
+<li><p>先单独编译msg包</p></li>
+</ol>
+
+<p>catkin_make xfuture_msgs_gencpp</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>伊卡洛斯 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://icaruslucifer.github.io/blog/ros_keng/>https://icaruslucifer.github.io/blog/ros_keng/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://icaruslucifer.github.io/tags/ros/">
+                    #ROS</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://icaruslucifer.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://icaruslucifer.github.io/blog/gpu_tensorflow/" class="prev" rel="prev" title="tensorflow-gpu 安装教程"><i class="iconfont icon-left"></i>&nbsp;tensorflow-gpu 安装教程</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2011 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://icaruslucifer.github.io">伊卡洛斯</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

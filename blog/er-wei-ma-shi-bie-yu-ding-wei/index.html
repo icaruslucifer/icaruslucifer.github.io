@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="伊卡洛斯">
+  
+  
+  
+  <link rel="prev" href="https://icaruslucifer.github.io/blog/docker_ai/" />
+  <link rel="next" href="https://icaruslucifer.github.io/blog/tx2_tensorflow/" />
+  <link rel="canonical" href="https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           二维码识别与定位 | 伊卡洛斯
+       
+  </title>
+  <meta name="title" content="二维码识别与定位 | 伊卡洛斯">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https://icaruslucifer.github.io"
+    },
+    "articleSection" : "blog",
+    "name" : "二维码识别与定位",
+    "headline" : "二维码识别与定位",
+    "description" : "运行环境  python2.7 或 python3.6 依赖的第三方库 opencv-python numpy 安装 sudo pip install opencv-python,numpy  二维码 QRCode 主要由以下部分组成： - 1 - Position Detection Pattern：位于三个角落，可以快速检测二维码位置。 - 2 - Separators：一个单位宽的分割线，提高二维码位置检测的效率。 - 3 - Timing Pattern：黑白相间，用于修正坐标系。 - 4 - Alignment Patterns：提高二维码在失真情况下的识别率。 - 5 - Format Information：格式信息，包含了错误修正级别和掩码图案。 - 6 - Data：真正的数据部分。 - 7 - Error Correction：用于错误修正，和 Data 部分格式相同。
+识别 二维码的识别主要使用第三方，目前开源的比较有名的二维码识别sdk有： zxing，zbar zxing的识别效果比zbar好，识别效果排名：微信&gt;支付宝&gt;zxing&gt;zbar
+ zxing的安装  下载地址：https://github.com/oostendo/python-zxing 下载下来之后需要再下载 jcommander-1.48.jar， 下载地址：http://mvnrepository.com/artifact/com.beust/jcommander/1.48
+下载之后放在目录下： 下面需要打开init.py文件，修改里面的内容
+libs = [&quot;javase.jar&quot;, &quot;core.",
+    "inLanguage" : "en-us",
+    "author" : "伊卡洛斯",
+    "creator" : "伊卡洛斯",
+    "publisher": "伊卡洛斯",
+    "accountablePerson" : "伊卡洛斯",
+    "copyrightHolder" : "伊卡洛斯",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-05-30 00:00:00 &#43;0000 UTC",
+    "dateModified" : "2019-05-30 00:00:00 &#43;0000 UTC",
+    "url" : "https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/",
+    "wordCount" : "531",
+    "keywords" : [ "图像处理", "伊卡洛斯"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">二维码识别与定位</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://icaruslucifer.github.io" rel="author">伊卡洛斯</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-05-30 itemprop="datePublished">May 30, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://icaruslucifer.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"> 图像处理 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="运行环境">运行环境</h2>
+
+<ul>
+<li>python2.7 或 python3.6</li>
+<li>依赖的第三方库 opencv-python numpy</li>
+<li>安装 sudo pip install opencv-python,numpy</li>
+</ul>
+
+<h2 id="二维码">二维码</h2>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="/blog/assets//61d238c7jw1f33jbzaxkxj21e00xcq5b.jpg" alt="二维码" class="lazyload"><figcaption class="image-caption">二维码</figcaption></figure></p>
+
+<p>QRCode 主要由以下部分组成：
+  - 1 - Position Detection Pattern：位于三个角落，可以快速检测二维码位置。
+  - 2 - Separators：一个单位宽的分割线，提高二维码位置检测的效率。
+  - 3 - Timing Pattern：黑白相间，用于修正坐标系。
+  - 4 - Alignment Patterns：提高二维码在失真情况下的识别率。
+  - 5 - Format Information：格式信息，包含了错误修正级别和掩码图案。
+  - 6 - Data：真正的数据部分。
+  - 7 - Error Correction：用于错误修正，和 Data 部分格式相同。</p>
+
+<h2 id="识别">识别</h2>
+
+<p>二维码的识别主要使用第三方，目前开源的比较有名的二维码识别sdk有：
+zxing，zbar
+zxing的识别效果比zbar好，识别效果排名：微信&gt;支付宝&gt;zxing&gt;zbar</p>
+
+<ul>
+<li>zxing的安装</li>
+</ul>
+
+<p>下载地址：<a href="https://github.com/oostendo/python-zxing" rel="nofollow noreferrer" target="_blank">https://github.com/oostendo/python-zxing</a>
+下载下来之后需要再下载 jcommander-1.48.jar，
+下载地址：<a href="http://mvnrepository.com/artifact/com.beust/jcommander/1.48" rel="nofollow noreferrer" target="_blank">http://mvnrepository.com/artifact/com.beust/jcommander/1.48</a></p>
+
+<p>下载之后放在目录下：
+<figure><img src="/images/ring.svg" data-sizes="auto" data-src="/blog/assets//A828219A-866E-4FFC-8D0F-E6F6A1FA361A.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>下面需要打开<strong>init</strong>.py文件，修改里面的内容</p>
+
+<pre><code>libs = [&quot;javase.jar&quot;, &quot;core.jar&quot;,&quot;jcommander-1.48.jar&quot;]
+  args = [&quot;-cp&quot;, &quot;LIBS&quot;, &quot;com.google.zxing.client.j2se.CommandLineRunner&quot;]
+</code></pre>
+
+<p>识别代码的调用方式：</p>
+
+<pre><code>impoty cv2 as cv
+from zxing import *
+imagefile = 'qrTest.png'  #图片地址
+cv.imwrite(imagefile, theImg)  #读取图片
+barcode = zx.decode(imagefile)  #识别
+if barcode is not None:
+    print barcode.data      #打印识别内容
+</code></pre>
+
+<h2 id="定位">定位</h2>
+
+<p>基本思路
+ - 加载图像，并且进行一些预处理，比如通过高斯模糊去噪。
+ - 通过 Canny 边缘检测算法，找出图像中的边缘
+ - 寻找边缘中的轮廓，将嵌套层数大于 3 的边缘找出，得到 Position Detection Pattern 。</p>
+
+<h3 id="opencv-contours">opencv  contours</h3>
+
+<p>轮廓（contour）可以简单理解为一段连续的像素点。比如一个长方形的边，比如一条线，比如一个点，都属于轮廓。而轮廓之间有一定的层级关系。</p>
+
+<h3 id="findcontours">findContours</h3>
+
+<p>findContours 是寻找轮廓的函数，函数定义如下：</p>
+
+<p><code>cv2.findContours(image, mode, method) → image, contours, hierarchy</code></p>
+
+<p>其中：</p>
+
+<ul>
+<li>image：资源图片，8 bit 单通道，一般需要将普通的 BGR 图片通过 cvtColor 函数转换。</li>
+<li>mode：边缘检测的模式，包括：
+
+<ul>
+<li>CV_RETR_EXTERNAL：只检索最大的外部轮廓（extreme outer），没有层级关系，只取根节点的轮廓。</li>
+<li>CV_RETR_LIST：检索所有轮廓，但是没有 Parent 和 Child 的层级关系，所有轮廓都是同级的。</li>
+<li>CV_RETR_CCOMP：检索所有轮廓，并且按照二级结构组织：外轮廓和内轮廓。以前面的大图为例，0、1、2、3、4、5 都属于第0层，2a 和 3a 都属于第1层。</li>
+<li>CV_RETR_TREE：检索所有轮廓，并且按照嵌套关系组织层级。以前面的大图为例，0、1、2 属于第0层，2a 属于第1层，3 属于第2层，3a 属于第3层，4、5 属于第4层。</li>
+</ul></li>
+<li>method：边缘近似的方法，包括：
+
+<ul>
+<li>CV_CHAIN_APPROX_NONE：严格存储所有边缘点，即：序列中任意两个点的距离均为1。</li>
+<li>CV_CHAIN_APPROX_SIMPLE：压缩边缘，通过顶点绘制轮廓。
+<br /></li>
+</ul></li>
+</ul>
+
+<h2 id="全部代码">全部代码</h2>
+
+<pre><code>#encoding=utf-8
+
+import cv2 as cv
+import sys,time
+import numpy as np
+import threading
+
+from zxing import *
+
+GWidth = 320
+GHeight  =240
+
+theImg = None
+
+lock = threading.RLock()  #多线程锁
+
+def showImg(img,index,windowName,width,height,top,left):
+    cv.namedWindow(windowName, index)
+    cv.resizeWindow(windowName, width, height)
+    cv.imshow(windowName, img)
+    cv.moveWindow(windowName,top,left)
+
+def qrCode(img):
+    gray = cv.cvtColor(img,cv.COLOR_RGB2GRAY) #转灰度
+
+    img_gb = cv.GaussianBlur(gray, (5, 5), 0)    #高斯模糊
+    edges = cv.Canny(img_gb, 100, 200)    #边缘提取
+
+    resultImg,contours, hierarchy = cv.findContours(edges, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)                #轮廓检测
+
+    needCutImg = img.copy()
+
+    preImg = img.copy()
+    cv.drawContours(preImg, contours, -1, (0, 0, 255), 1)
+    showImg(preImg, 2, &quot;pre&quot;, GWidth, GHeight, 0, GHeight+40)
+
+    qrContours= []
+
+    for i in range(len(contours)):
+        area = cv.contourArea(contours[i])
+        rect = cv.minAreaRect(contours[i])
+        width,height = rect[1]
+        ww = float(min(width,height))
+        hh = float(max(width,height))
+        #判断轮廓的形状，二维码的三个角都是正方形
+        if ww&gt;0 and hh&gt;0 and ww/hh&gt;0.6:
+            k = i
+            c = 0
+            #判断轮廓的层级关系
+            while hierarchy[0][k][2] != -1:
+                k = hierarchy[0][k][2]
+                c = c + 1
+            if c &gt;= 3:
+                qrContours.append(contours[i])
+
+    cv.drawContours(img, qrContours, -1, (0, 0, 255), 1)
+    showImg(img, 3, &quot;result&quot;, GWidth, GHeight, GWidth + 40, GHeight + 40)
+
+
+    #裁剪图片
+    maxW = 0
+    maxIndex = -1
+    for i in range(0,len(qrContours)):
+        x, y, w, h = cv.boundingRect(qrContours[i])
+        if w &gt; maxW :
+            maxW = w
+            maxIndex = i
+
+    if maxIndex != -1:
+        #print maxIndex
+        x, y, w, h = cv.boundingRect(qrContours[maxIndex])
+        #print x,y,w,h
+        centerX = x+w/2
+        centerY = y+h/2
+
+        #print (w,'x',centerX,'y',centerY)
+        imgSize = needCutImg.shape
+
+
+        offset = 4
+
+        left = (centerX-w*offset) if (centerX-w*offset)&gt;0 else 0
+        right = (centerX+w*offset) if (centerX+w*offset)&lt;imgSize[0] else imgSize[0]
+        top = (centerY - w * offset) if (centerY - w * offset) &gt; 0 else 0
+        bottom = (centerY + w * offset) if (centerY + w * offset) &lt; imgSize[1] else imgSize[0]
+
+        #print ('x',imgSize[0],'y',imgSize[1],'/',left,'/',right,'/',top,'/',bottom)
+        cutImg = needCutImg[top:bottom,left:right]
+        if(cutImg.shape[0]&gt;0 and cutImg.shape[1]&gt;0):
+            cutImg = cv.resize(cutImg, (cutImg.shape[0]*2, cutImg.shape[1]*2), interpolation=cv.INTER_CUBIC)
+            showImg(cutImg, 1, &quot;cut&quot;, GWidth, GHeight, GWidth+40, 0)
+
+        global theImg
+        lock.acquire()
+        theImg = cutImg
+        lock.release()
+
+
+#识别二维码
+def recongCode():
+    while (1):
+        global theImg
+        try:
+            if theImg is not None and theImg.shape[0]&gt;0:
+                imagefile = 'qrTest.png'
+                cv.imwrite(imagefile, theImg)
+                barcode = zx.decode(imagefile)
+                if barcode is not None:
+                    print barcode.data
+                time.sleep(1)
+        except:
+            pass
+
+
+
+if __name__ == '__main__':
+    #这里一样用把zxing文件夹的路径写上去，不然调用不了，网上教程都是没写的
+    zx = BarCodeReader(sys.path[0]+ '/zxing')
+    #打开相机
+    cap  = cv.VideoCapture(0)
+    
+    #创建二维码识别线程
+    qrCodeRecongThread = threading.Thread(target=recongCode, args=())
+    qrCodeRecongThread.setDaemon(True)
+    qrCodeRecongThread.start()
+
+    while(1):
+        ret,frame = cap.read()
+        #smallImg = cv.resize(frame, (640, 480), interpolation=cv.INTER_CUBIC)
+    
+        refitImg = frame
+        showImg(refitImg,0,&quot;capture&quot;,GWidth,GHeight,0,0)
+
+        # lock.acquire()
+        # theImg = refitImg
+        # lock.release()
+
+        qrCode(refitImg)
+
+
+        if cv.waitKey(1) &amp; 0xFF == ord('q'):
+            break
+    cap.release()
+    cv.destroyAllWindows()
+</code></pre>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>伊卡洛斯 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://icaruslucifer.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">
+                    #图像处理</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://icaruslucifer.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://icaruslucifer.github.io/blog/docker_ai/" class="prev" rel="prev" title="如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署"><i class="iconfont icon-left"></i>&nbsp;如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署</a>
+         
+        
+        <a href="https://icaruslucifer.github.io/blog/tx2_tensorflow/" class="next" rel="next" title="TX2上安装tensorflow">TX2上安装tensorflow&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2011 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://icaruslucifer.github.io">伊卡洛斯</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

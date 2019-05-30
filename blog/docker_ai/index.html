@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="伊卡洛斯">
+  
+  
+  
+  <link rel="prev" href="https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/" />
+  <link rel="next" href="https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/" />
+  <link rel="canonical" href="https://icaruslucifer.github.io/blog/docker_ai/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署 | 伊卡洛斯
+       
+  </title>
+  <meta name="title" content="如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署 | 伊卡洛斯">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https://icaruslucifer.github.io"
+    },
+    "articleSection" : "blog",
+    "name" : "如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署",
+    "headline" : "如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署",
+    "description" : "现在深度学习的框架很多，tensorflow，caffe，pytorch，mxnet，大家都在比较哪个好用，哪个好部署，tensorflow部署很方便，caffe部署坑比较多，网上都有caffe远程部署的生意做了。最近也在学习深度学习，接触docker这个东西，感觉很好用，后来看到不少也是用docker的，顺着这条路一直查找，从docker到nvidia-docker，到pytorch，再到pycharm，也有些小坑，现在总结出来提供给大家。
+docker安装 docker安装建议去官网查看安装指南docker，网上有说直接通过apt-get安装的，这种方式老了，一些简单的docker可以，但是如果后面要用nvidia-docker就不要这样安装。 错误方式 apt-get -y install docker.io 正确方式 这里以ubuntu为例，去官网按照step一步一步来。 注意点： 如果按照它的安装之后，每次执行docker都需要添加sudo，这在后面通过pycharm设置docker的时候会提示没有权限，具体方法是把当前用户加入到docker用户组中，然后重启电脑。 具体操作见指南
+ docker的常用命令(从别人那里copy的，多用几次就会了)  ### 显示版本信息 (与python, nvcc相比少了两个‘--’） $ docker version ### 了解当前Docker的使用状态（当前容器，镜像数目信息，存储空间占用信息， # OS内核版本， 发行版本， 硬件资源等） $ docker info ### 拉去一个镜像 ( xxxx 表示某个镜像名字，） $ docker pull xxxx # e.g. # docker pull ubuntu ### 查看系统中已有的镜像(images要带‘s') $ docker images # e.g.: # REPOSITORY TAG IMAGES ID CREATED VIRTUAL SIZE # ubuntu latest 4ef6axxxxx 5 day ago 84.",
+    "inLanguage" : "en-us",
+    "author" : "伊卡洛斯",
+    "creator" : "伊卡洛斯",
+    "publisher": "伊卡洛斯",
+    "accountablePerson" : "伊卡洛斯",
+    "copyrightHolder" : "伊卡洛斯",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-05-30 00:00:00 &#43;0000 UTC",
+    "dateModified" : "2019-05-30 00:00:00 &#43;0000 UTC",
+    "url" : "https://icaruslucifer.github.io/blog/docker_ai/",
+    "wordCount" : "326",
+    "keywords" : [ "深度学习", "伊卡洛斯"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://icaruslucifer.github.io" rel="author">伊卡洛斯</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-05-30 itemprop="datePublished">May 30, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://icaruslucifer.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"> 深度学习入门 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<p>现在深度学习的框架很多，tensorflow，caffe，pytorch，mxnet，大家都在比较哪个好用，哪个好部署，tensorflow部署很方便，caffe部署坑比较多，网上都有caffe远程部署的生意做了。最近也在学习深度学习，接触docker这个东西，感觉很好用，后来看到不少也是用docker的，顺着这条路一直查找，从docker到nvidia-docker，到pytorch，再到pycharm，也有些小坑，现在总结出来提供给大家。</p>
+
+<h2 id="docker安装">docker安装</h2>
+
+<p>docker安装建议去官网查看安装指南<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" rel="nofollow noreferrer" target="_blank">docker</a>，网上有说直接通过apt-get安装的，这种方式老了，一些简单的docker可以，但是如果后面要用nvidia-docker就不要这样安装。
+错误方式
+<code>apt-get -y install docker.io</code>
+正确方式
+这里以ubuntu为例，去官网按照step一步一步来。
+注意点：
+如果按照它的安装之后，每次执行docker都需要添加sudo，这在后面通过pycharm设置docker的时候会提示没有权限，具体方法是把当前用户加入到docker用户组中，然后重启电脑。
+具体操作见<a href="https://docs.docker.com/install/linux/linux-postinstall/" rel="nofollow noreferrer" target="_blank">指南</a></p>
+
+<ul>
+<li>docker的常用命令(从别人那里copy的，多用几次就会了)</li>
+</ul>
+
+<pre><code>### 显示版本信息 (与python, nvcc相比少了两个‘--’）
+$ docker version
+
+### 了解当前Docker的使用状态（当前容器，镜像数目信息，存储空间占用信息，
+# OS内核版本， 发行版本， 硬件资源等）
+$ docker info
+
+### 拉去一个镜像 ( xxxx 表示某个镜像名字，）
+$ docker pull xxxx
+# e.g.
+# docker pull ubuntu
+
+### 查看系统中已有的镜像(images要带‘s')
+$ docker images
+# e.g.:
+# REPOSITORY  TAG    IMAGES ID   CREATED VIRTUAL SIZE
+# ubuntu      latest 4ef6axxxxx   5 day ago  84.0M
+
+### 从镜像创建docker容器
+$ docker run -i -t ubuntu /bin/bash 
+# or
+$ docker run -it 4ef /bin/bash
+# 其中 -i, 交互模式，让输入输出都在标准控制台进行；-d，则进入后台
+# -t, 为新创建的容器分配一个伪终端
+# ubuntu, 用于创建容器的镜像名，可用ID来代替（前3位足够）
+# /bin/bash， 在新建容器中运行的命令，可以为任意Linux命令
+
+### 离开当前容器,返回宿主机终端，使用组合键 &quot;Ctrl+P&quot; 和 &quot;Ctrl+Q&quot;
+
+### 查看当前活动的容器
+$ docker ps
+# CONTAINER ID  IMAGE  COMMAND  CREATED   STATUS   PORTS NAME
+# 610xxxx  ubuntu:latest  &quot;/bin/bash&quot; 1 minute ago Up 1 minute ago prickly_wilson
+
+### 宿主机终端与某个容器建立连接
+$ docker attach 610
+
+### 从容器创建Docker镜像
+$ docker commit -m &quot;hhahaha&quot; 610 ubuntu:hhh
+# -m, 新镜像说明
+# 610， 某个容器的ID
+# ubuntu:hhh， 命名最好不要这么随意
+# 那么接下来可以查看新生成的镜像，命令 docker images
+
+### 基于新的镜像创建一个新的容器(一样的)
+$ docker run -it ubuntu:hhh /bin/bash
+
+### 给镜像重命名(方便记忆)
+$ docker tag IMAGEID(image id) REPOSITORY:TAG
+
+### 给容器重命名
+$ docker rename old-container-name new-container-name
+</code></pre>
+
+<h2 id="安装nvidia-docker2">安装nvidia docker2</h2>
+
+<p>nvidia-docker是在docker的基础上又安装了cudnn、cuda的一些东西，省去了自己去配对cuda和cudnn的安装版本问题。它有很多版本，有cuda10，有cuda9，最新版是cuda10.1，你可以安装完成之后通过tag去切换，这点真的很棒。具体安装过程如下：<a href="https://github.com/NVIDIA/nvidia-docker" rel="nofollow noreferrer" target="_blank">nvidia-docker</a></p>
+
+<pre><code># If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
+sudo apt-get purge -y nvidia-docker
+
+# Add the package repositories
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+
+# Install nvidia-docker2 and reload the Docker daemon configuration
+sudo apt-get install -y nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# Test nvidia-smi with the latest official CUDA image ,其中cuda:9.0-base就是tag，要加--runtime=nvidia否则用不了cuda
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
+</code></pre>
+
+<h2 id="安装pytorch-这里以pytorch为例-当然你也可以安装其他的框架">安装pytorch（这里以pytorch为例，当然你也可以安装其他的框架）</h2>
+
+<p>安装命令在<a href="https://pytorch.org/" rel="nofollow noreferrer" target="_blank">pytorch</a>首页已经给出.
+- 验证安装</p>
+
+<pre><code>$ python
+$ import torch
+$ print torch.cuda.is_available()
+# if 'True', congratulation; if 'False', please check again and again.
+</code></pre>
+
+<ul>
+<li>PS
+docker有个不好的地方是，你安装了东西或者运行程序产生了数据，一旦你关掉了docker，你安装的东西和数据就全部消失了，怎么办？commit</li>
+</ul>
+
+<pre><code>nvidia-docker commit -m 'hhhh' xxx xxxx
+</code></pre>
+
+<p>要记得在docker关闭之前commit，如果是重要的安装或者耗时安装，安装完就先commit下保存起来。</p>
+
+<h2 id="pytharm上使用docker">pytharm上使用docker</h2>
+
+<p>docker一般通过命令行进行交互，这个时候我们如果想断点调试一些代码就比较麻烦了，好在pycharm提供了docker的调试机制，这点很好。关于pycharm如何使用docker，可以参考<a href="https://blog.csdn.net/ryanpinwei/article/details/78806052" rel="nofollow noreferrer" target="_blank">这篇文章</a>，有几个小坑填下就好了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>伊卡洛斯 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://icaruslucifer.github.io/blog/docker_ai/>https://icaruslucifer.github.io/blog/docker_ai/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://icaruslucifer.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                    #深度学习</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://icaruslucifer.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/" class="prev" rel="prev" title="快速实现人脸识别和语音播报"><i class="iconfont icon-left"></i>&nbsp;快速实现人脸识别和语音播报</a>
+         
+        
+        <a href="https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/" class="next" rel="next" title="二维码识别与定位">二维码识别与定位&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2011 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://icaruslucifer.github.io">伊卡洛斯</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>伊卡洛斯 on 伊卡洛斯</title>
+    <link>https://icaruslucifer.github.io/</link>
+    <description>Recent content in 伊卡洛斯 on 伊卡洛斯</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 May 2019 17:01:13 +0800</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ROS坑</title>
+      <link>https://icaruslucifer.github.io/blog/ros_keng/</link>
+      <pubDate>Thu, 30 May 2019 17:01:13 +0800</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/ros_keng/</guid>
+      <description>
+
+&lt;h2 id=&#34;ros-launch-文件中-param-设置的坑&#34;&gt;ROS launch 文件中 param 设置的坑&lt;/h2&gt;
+
+&lt;p&gt;launch 文件中 param 一般不需要配置类型，但所有参数值都会使用双引号包含，会自动进行类型推导，规则如下（参见 &lt;a href=&#34;http://wiki.ros.org/roslaunch/XML/param&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;roslaunch/XML/param&lt;/a&gt;）&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;数字带有 &amp;lsquo;.&amp;rsquo; 的是浮点数，其余是整数。&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;true&amp;rdquo; 和 &amp;ldquo;false&amp;rdquo; 是布尔量，大小写不敏感。&lt;/li&gt;
+&lt;li&gt;其他所有值都认为是字符串。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;其中一个坑就是，如果一个值类型本来是字符串，但是值是数字，那么会自动推导成数字，导致程序解析时无法获取到想要的字符串的问题。&lt;/p&gt;
+
+&lt;p&gt;解决方法，在参数属性中配置 &lt;code&gt;type&lt;/code&gt; 字段：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;str&lt;/code&gt;: 字符串&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int&lt;/code&gt;: 整形&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;double&lt;/code&gt;: 浮点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bool&lt;/code&gt;: 布尔量&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yaml&lt;/code&gt;: yaml 内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ros-编写urdf&#34;&gt;ROS 编写urdf&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;有时候明明代码编写没问题，但是运行之后显示“No transform form 【A】 to 【B】”
+可是尝试以下方式：&lt;/li&gt;
+&lt;li&gt;这个时候需要看看是不是xml编写不规范，去一些xml格式网站把内容格式化；&lt;/li&gt;
+&lt;li&gt;安装 sudo apt-get install unicode ；&lt;/li&gt;
+&lt;li&gt;重启rviz，roscore&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ros-编译含msg的工程不通过&#34;&gt;ROS 编译含msg的工程不通过&lt;/h2&gt;
+
+&lt;p&gt;几种方法&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;catkin_make -j1&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;先单独编译msg包
+catkin_make -DCATKIN_WHITELIST_PACKAGES=&amp;ldquo;beginner_tutorials&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;先单独编译msg包&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;catkin_make xfuture_msgs_gencpp&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>tensorflow-gpu 安装教程</title>
+      <link>https://icaruslucifer.github.io/blog/gpu_tensorflow/</link>
+      <pubDate>Thu, 30 May 2019 16:57:55 +0800</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/gpu_tensorflow/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;配置如下：
+Ubuntu16.04
+python3.5
+nvidia driver GTX750
+cuda 9.0
+cudnn 7.1
+tensorflow 1.8&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;安装nvidia-driver&#34;&gt;安装NVIDIA driver&lt;/h3&gt;
+
+&lt;p&gt;查看NVIDIA driver推荐&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;$ ubuntu-drivers devices
+== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+modalias : pci:v000010DEd00001C81sv00001028sd000011C0bc03sc00i00
+vendor   : NVIDIA Corporation
+model    : GP107 [GeForce GTX 1050]
+driver   : nvidia-driver-396 - third-party free recommended
+driver   : nvidia-driver-390 - third-party free
+driver   : xserver-xorg-video-nouveau - distro free builtin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo ubuntu-drivers autoinstall
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;按照推荐的驱动安装，如果失败，请添加NVIDIA driver源仓库然后在安装，安装命令如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo add-apt-repository ppa:graphics-drivers/ppa    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试安装是否成功&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvidia-smi    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安装cuda-9-0&#34;&gt;安装CUDA-9.0&lt;/h3&gt;
+
+&lt;p&gt;进入网站：
+&lt;a href=&#34;https://developer.nvidia.com/cuda-90-download-archive?target_os=Linux&amp;amp;target_arch=x86_64&amp;amp;target_distro=Ubuntu&amp;amp;target_version=1604&amp;amp;target_type=debnetwork&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://developer.nvidia.com/cuda-90-download-archive?target_os=Linux&amp;amp;target_arch=x86_64&amp;amp;target_distro=Ubuntu&amp;amp;target_version=1604&amp;amp;target_type=debnetwork&lt;/a&gt;
+下载deb
+在现在的deb文件路径中打开ubuntu终端，执行如下命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;Installation Instructions:
+1、`sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb`
+2、`sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub`
+3、`sudo apt-get update`
+4、`sudo apt-get install cuda`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里有时候会帮你自动安装到cuda10.0，如果不想让他帮你安装到cuda10.0，可以在执行最后一条命令时改为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install cuda-9.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果安装了cuda10想卸载，则执行如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get remove cuda
+sudo apt-get autoclean
+sudo apt-get remove cuda*
+cd /usr/local/
+sudo rm -rf cuda-10.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试cuda&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;$ cd /usr/local/cuda/samples/5_Simulations/fluidsGL
+$ sudo make clean &amp;amp;&amp;amp; make
+$ ./fluidsGL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://img-blog.csdn.net/20180522134849230&#34; alt=&#34;cuda测试&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;出现如下页面则代表cuda安装成功。&lt;/p&gt;
+
+&lt;h3 id=&#34;安装cudnn7-1&#34;&gt;安装cudnn7.1&lt;/h3&gt;
+
+&lt;p&gt;下载文件：
+访问网页：
+&lt;a href=&#34;https://developer.nvidia.com/rdp/cudnn-archive&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://developer.nvidia.com/rdp/cudnn-archive&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;选择：
+cuDNN v7.1.3 Library for Linux&lt;/p&gt;
+
+&lt;p&gt;解压文件
+把文件移到cuda目录下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;$ sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
+$ sudo cp cuda/include/cudnn.h /usr/local/cuda-9.0/include/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;给文件读取权限&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;$ sudo chmod a+r /usr/local/cuda-9.0/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行如下命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;$ sudo ldconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;从pip安装tensorflow1-8&#34;&gt;从pip安装Tensorflow1.8&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$  pip install --upgrade tensorflow-gpu == 1.8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装完成之后终端进入python输入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Python 2.7.15rc1 (default, Apr 15 2018, 21:51:34) 
+[GCC 7.3.0] on linux2
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; from tensorflow.python.client import device_lib
+&amp;gt;&amp;gt;&amp;gt; device_lib.list_local_devices()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果出现下图所示则安装成功，可以看到GPU已经被列出来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[name: &amp;quot;/device:CPU:0&amp;quot;
+device_type: &amp;quot;CPU&amp;quot;
+memory_limit: 268435456
+locality {
+}
+incarnation: 8754742150252655686
+, name: &amp;quot;/device:GPU:0&amp;quot;
+device_type: &amp;quot;GPU&amp;quot;
+memory_limit: 1276313600
+locality {
+  bus_id: 1
+  links {
+  }
+}
+incarnation: 17576461877219777618
+physical_device_desc: &amp;quot;device: 0, name: GeForce GTX 1050, pci bus id: 0000:01:00.0, compute capability: 6.1&amp;quot;
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;至此tensorflow1.8 完成安装。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>TX2上安装tensorflow</title>
+      <link>https://icaruslucifer.github.io/blog/tx2_tensorflow/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/tx2_tensorflow/</guid>
+      <description>
+
+&lt;p&gt;#&lt;/p&gt;
+
+&lt;h1 id=&#34;tx2安装tensorflow-gpu版本的坑&#34;&gt;TX2安装tensorflow-gpu版本的坑&lt;/h1&gt;
+
+&lt;p&gt;###tensorflow-gpu安装&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;安装tensorflow-gpu版本时，用 “sudo pip install tensorflow-gpu”命令会提示你找不到tensooflow的包，不要慌，不用担心是电脑问题，也别怀疑是系统刷机没刷好，是真的找不到，为啥我在电脑上能找到呢，那就要问nivdia。 怎么解决？&lt;/li&gt;
+&lt;li&gt;输入这个命令就可以
+&lt;code&gt;
+pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp33 tensorflow-gpu
+&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体参考
+&lt;a href=&#34;https://blog.csdn.net/zhangziju/article/details/85252474，请只看安装tensorflow的部分，安装cudnn的部分不适用。&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://blog.csdn.net/zhangziju/article/details/85252474，请只看安装tensorflow的部分，安装cudnn的部分不适用。&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;从这个命令可以看出，nivdia帮我们做了一个在arm上的tensorflow-gpu的版本，但是是jetpack3.3的，如果你刷机刷的不是jetpack3.3，tensorflow装是装好了，但是一跑tensorflow代码就会闪退，原因是提示你cudnn的版本不对，比如jetpack3.1的cudnn的版本是7.0.4，而jetpack3.3的cudnn的版本要求是7.1.5。怎么破？&lt;/p&gt;
+
+&lt;p&gt;###cudnn的安装
+千万别参考网上的直接去cudnn的下载区去下载，那里面下载的都是x86架构的，TX2是arm架构，无法使用，我们自己电脑上安装tensorflow-gpu版本可以去cudnn的下载区下载。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;参考&lt;a href=&#34;https://blog.csdn.net/qq_36302589/article/details/85222876&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://blog.csdn.net/qq_36302589/article/details/85222876&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;说明一下：去自己电脑下载jetpack3.3，然后下载依赖包，把cudnn的包拷贝到tx2上，执行如下命令就ok了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo dpkg -i libcudnn6_6.0.21-1+cuda8.0_arm64.deb
+sudo dpkg -i libcudnn6-dev_6.0.21-1+cuda8.0_arm64.deb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意点：
+- 自己的电脑必须是英文版的，否则nivdia不给你运行jetpack3.3
+- 运行jetpack3.3的run文件，不能使用root或者sudo
+- 运行jetpack3.3后会弹出 conpoent mamager界面，有时候什么都没显示，别慌，等等，网络加载有点时间，等会就好了&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>二维码识别与定位</title>
+      <link>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</guid>
+      <description>
+
+&lt;h2 id=&#34;运行环境&#34;&gt;运行环境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;python2.7 或 python3.6&lt;/li&gt;
+&lt;li&gt;依赖的第三方库 opencv-python numpy&lt;/li&gt;
+&lt;li&gt;安装 sudo pip install opencv-python,numpy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;二维码&#34;&gt;二维码&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets//61d238c7jw1f33jbzaxkxj21e00xcq5b.jpg&#34; alt=&#34;二维码&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;QRCode 主要由以下部分组成：
+  - 1 - Position Detection Pattern：位于三个角落，可以快速检测二维码位置。
+  - 2 - Separators：一个单位宽的分割线，提高二维码位置检测的效率。
+  - 3 - Timing Pattern：黑白相间，用于修正坐标系。
+  - 4 - Alignment Patterns：提高二维码在失真情况下的识别率。
+  - 5 - Format Information：格式信息，包含了错误修正级别和掩码图案。
+  - 6 - Data：真正的数据部分。
+  - 7 - Error Correction：用于错误修正，和 Data 部分格式相同。&lt;/p&gt;
+
+&lt;h2 id=&#34;识别&#34;&gt;识别&lt;/h2&gt;
+
+&lt;p&gt;二维码的识别主要使用第三方，目前开源的比较有名的二维码识别sdk有：
+zxing，zbar
+zxing的识别效果比zbar好，识别效果排名：微信&amp;gt;支付宝&amp;gt;zxing&amp;gt;zbar&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;zxing的安装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下载地址：&lt;a href=&#34;https://github.com/oostendo/python-zxing&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/oostendo/python-zxing&lt;/a&gt;
+下载下来之后需要再下载 jcommander-1.48.jar，
+下载地址：&lt;a href=&#34;http://mvnrepository.com/artifact/com.beust/jcommander/1.48&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;http://mvnrepository.com/artifact/com.beust/jcommander/1.48&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下载之后放在目录下：
+&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets//A828219A-866E-4FFC-8D0F-E6F6A1FA361A.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下面需要打开&lt;strong&gt;init&lt;/strong&gt;.py文件，修改里面的内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;libs = [&amp;quot;javase.jar&amp;quot;, &amp;quot;core.jar&amp;quot;,&amp;quot;jcommander-1.48.jar&amp;quot;]
+  args = [&amp;quot;-cp&amp;quot;, &amp;quot;LIBS&amp;quot;, &amp;quot;com.google.zxing.client.j2se.CommandLineRunner&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;识别代码的调用方式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;impoty cv2 as cv
+from zxing import *
+imagefile = &#39;qrTest.png&#39;  #图片地址
+cv.imwrite(imagefile, theImg)  #读取图片
+barcode = zx.decode(imagefile)  #识别
+if barcode is not None:
+    print barcode.data      #打印识别内容
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;定位&#34;&gt;定位&lt;/h2&gt;
+
+&lt;p&gt;基本思路
+ - 加载图像，并且进行一些预处理，比如通过高斯模糊去噪。
+ - 通过 Canny 边缘检测算法，找出图像中的边缘
+ - 寻找边缘中的轮廓，将嵌套层数大于 3 的边缘找出，得到 Position Detection Pattern 。&lt;/p&gt;
+
+&lt;h3 id=&#34;opencv-contours&#34;&gt;opencv  contours&lt;/h3&gt;
+
+&lt;p&gt;轮廓（contour）可以简单理解为一段连续的像素点。比如一个长方形的边，比如一条线，比如一个点，都属于轮廓。而轮廓之间有一定的层级关系。&lt;/p&gt;
+
+&lt;h3 id=&#34;findcontours&#34;&gt;findContours&lt;/h3&gt;
+
+&lt;p&gt;findContours 是寻找轮廓的函数，函数定义如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;cv2.findContours(image, mode, method) → image, contours, hierarchy&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;其中：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;image：资源图片，8 bit 单通道，一般需要将普通的 BGR 图片通过 cvtColor 函数转换。&lt;/li&gt;
+&lt;li&gt;mode：边缘检测的模式，包括：
+
+&lt;ul&gt;
+&lt;li&gt;CV_RETR_EXTERNAL：只检索最大的外部轮廓（extreme outer），没有层级关系，只取根节点的轮廓。&lt;/li&gt;
+&lt;li&gt;CV_RETR_LIST：检索所有轮廓，但是没有 Parent 和 Child 的层级关系，所有轮廓都是同级的。&lt;/li&gt;
+&lt;li&gt;CV_RETR_CCOMP：检索所有轮廓，并且按照二级结构组织：外轮廓和内轮廓。以前面的大图为例，0、1、2、3、4、5 都属于第0层，2a 和 3a 都属于第1层。&lt;/li&gt;
+&lt;li&gt;CV_RETR_TREE：检索所有轮廓，并且按照嵌套关系组织层级。以前面的大图为例，0、1、2 属于第0层，2a 属于第1层，3 属于第2层，3a 属于第3层，4、5 属于第4层。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;method：边缘近似的方法，包括：
+
+&lt;ul&gt;
+&lt;li&gt;CV_CHAIN_APPROX_NONE：严格存储所有边缘点，即：序列中任意两个点的距离均为1。&lt;/li&gt;
+&lt;li&gt;CV_CHAIN_APPROX_SIMPLE：压缩边缘，通过顶点绘制轮廓。
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;全部代码&#34;&gt;全部代码&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;#encoding=utf-8
+
+import cv2 as cv
+import sys,time
+import numpy as np
+import threading
+
+from zxing import *
+
+GWidth = 320
+GHeight  =240
+
+theImg = None
+
+lock = threading.RLock()  #多线程锁
+
+def showImg(img,index,windowName,width,height,top,left):
+    cv.namedWindow(windowName, index)
+    cv.resizeWindow(windowName, width, height)
+    cv.imshow(windowName, img)
+    cv.moveWindow(windowName,top,left)
+
+def qrCode(img):
+    gray = cv.cvtColor(img,cv.COLOR_RGB2GRAY) #转灰度
+
+    img_gb = cv.GaussianBlur(gray, (5, 5), 0)    #高斯模糊
+    edges = cv.Canny(img_gb, 100, 200)    #边缘提取
+
+    resultImg,contours, hierarchy = cv.findContours(edges, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)                #轮廓检测
+
+    needCutImg = img.copy()
+
+    preImg = img.copy()
+    cv.drawContours(preImg, contours, -1, (0, 0, 255), 1)
+    showImg(preImg, 2, &amp;quot;pre&amp;quot;, GWidth, GHeight, 0, GHeight+40)
+
+    qrContours= []
+
+    for i in range(len(contours)):
+        area = cv.contourArea(contours[i])
+        rect = cv.minAreaRect(contours[i])
+        width,height = rect[1]
+        ww = float(min(width,height))
+        hh = float(max(width,height))
+        #判断轮廓的形状，二维码的三个角都是正方形
+        if ww&amp;gt;0 and hh&amp;gt;0 and ww/hh&amp;gt;0.6:
+            k = i
+            c = 0
+            #判断轮廓的层级关系
+            while hierarchy[0][k][2] != -1:
+                k = hierarchy[0][k][2]
+                c = c + 1
+            if c &amp;gt;= 3:
+                qrContours.append(contours[i])
+
+    cv.drawContours(img, qrContours, -1, (0, 0, 255), 1)
+    showImg(img, 3, &amp;quot;result&amp;quot;, GWidth, GHeight, GWidth + 40, GHeight + 40)
+
+
+    #裁剪图片
+    maxW = 0
+    maxIndex = -1
+    for i in range(0,len(qrContours)):
+        x, y, w, h = cv.boundingRect(qrContours[i])
+        if w &amp;gt; maxW :
+            maxW = w
+            maxIndex = i
+
+    if maxIndex != -1:
+        #print maxIndex
+        x, y, w, h = cv.boundingRect(qrContours[maxIndex])
+        #print x,y,w,h
+        centerX = x+w/2
+        centerY = y+h/2
+
+        #print (w,&#39;x&#39;,centerX,&#39;y&#39;,centerY)
+        imgSize = needCutImg.shape
+
+
+        offset = 4
+
+        left = (centerX-w*offset) if (centerX-w*offset)&amp;gt;0 else 0
+        right = (centerX+w*offset) if (centerX+w*offset)&amp;lt;imgSize[0] else imgSize[0]
+        top = (centerY - w * offset) if (centerY - w * offset) &amp;gt; 0 else 0
+        bottom = (centerY + w * offset) if (centerY + w * offset) &amp;lt; imgSize[1] else imgSize[0]
+
+        #print (&#39;x&#39;,imgSize[0],&#39;y&#39;,imgSize[1],&#39;/&#39;,left,&#39;/&#39;,right,&#39;/&#39;,top,&#39;/&#39;,bottom)
+        cutImg = needCutImg[top:bottom,left:right]
+        if(cutImg.shape[0]&amp;gt;0 and cutImg.shape[1]&amp;gt;0):
+            cutImg = cv.resize(cutImg, (cutImg.shape[0]*2, cutImg.shape[1]*2), interpolation=cv.INTER_CUBIC)
+            showImg(cutImg, 1, &amp;quot;cut&amp;quot;, GWidth, GHeight, GWidth+40, 0)
+
+        global theImg
+        lock.acquire()
+        theImg = cutImg
+        lock.release()
+
+
+#识别二维码
+def recongCode():
+    while (1):
+        global theImg
+        try:
+            if theImg is not None and theImg.shape[0]&amp;gt;0:
+                imagefile = &#39;qrTest.png&#39;
+                cv.imwrite(imagefile, theImg)
+                barcode = zx.decode(imagefile)
+                if barcode is not None:
+                    print barcode.data
+                time.sleep(1)
+        except:
+            pass
+
+
+
+if __name__ == &#39;__main__&#39;:
+    #这里一样用把zxing文件夹的路径写上去，不然调用不了，网上教程都是没写的
+    zx = BarCodeReader(sys.path[0]+ &#39;/zxing&#39;)
+    #打开相机
+    cap  = cv.VideoCapture(0)
+    
+    #创建二维码识别线程
+    qrCodeRecongThread = threading.Thread(target=recongCode, args=())
+    qrCodeRecongThread.setDaemon(True)
+    qrCodeRecongThread.start()
+
+    while(1):
+        ret,frame = cap.read()
+        #smallImg = cv.resize(frame, (640, 480), interpolation=cv.INTER_CUBIC)
+    
+        refitImg = frame
+        showImg(refitImg,0,&amp;quot;capture&amp;quot;,GWidth,GHeight,0,0)
+
+        # lock.acquire()
+        # theImg = refitImg
+        # lock.release()
+
+        qrCode(refitImg)
+
+
+        if cv.waitKey(1) &amp;amp; 0xFF == ord(&#39;q&#39;):
+            break
+    cap.release()
+    cv.destroyAllWindows()
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署</title>
+      <link>https://icaruslucifer.github.io/blog/docker_ai/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/docker_ai/</guid>
+      <description>
+
+&lt;p&gt;现在深度学习的框架很多，tensorflow，caffe，pytorch，mxnet，大家都在比较哪个好用，哪个好部署，tensorflow部署很方便，caffe部署坑比较多，网上都有caffe远程部署的生意做了。最近也在学习深度学习，接触docker这个东西，感觉很好用，后来看到不少也是用docker的，顺着这条路一直查找，从docker到nvidia-docker，到pytorch，再到pycharm，也有些小坑，现在总结出来提供给大家。&lt;/p&gt;
+
+&lt;h2 id=&#34;docker安装&#34;&gt;docker安装&lt;/h2&gt;
+
+&lt;p&gt;docker安装建议去官网查看安装指南&lt;a href=&#34;https://docs.docker.com/install/linux/docker-ce/ubuntu/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;docker&lt;/a&gt;，网上有说直接通过apt-get安装的，这种方式老了，一些简单的docker可以，但是如果后面要用nvidia-docker就不要这样安装。
+错误方式
+&lt;code&gt;apt-get -y install docker.io&lt;/code&gt;
+正确方式
+这里以ubuntu为例，去官网按照step一步一步来。
+注意点：
+如果按照它的安装之后，每次执行docker都需要添加sudo，这在后面通过pycharm设置docker的时候会提示没有权限，具体方法是把当前用户加入到docker用户组中，然后重启电脑。
+具体操作见&lt;a href=&#34;https://docs.docker.com/install/linux/linux-postinstall/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;指南&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;docker的常用命令(从别人那里copy的，多用几次就会了)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;### 显示版本信息 (与python, nvcc相比少了两个‘--’）
+$ docker version
+
+### 了解当前Docker的使用状态（当前容器，镜像数目信息，存储空间占用信息，
+# OS内核版本， 发行版本， 硬件资源等）
+$ docker info
+
+### 拉去一个镜像 ( xxxx 表示某个镜像名字，）
+$ docker pull xxxx
+# e.g.
+# docker pull ubuntu
+
+### 查看系统中已有的镜像(images要带‘s&#39;)
+$ docker images
+# e.g.:
+# REPOSITORY  TAG    IMAGES ID   CREATED VIRTUAL SIZE
+# ubuntu      latest 4ef6axxxxx   5 day ago  84.0M
+
+### 从镜像创建docker容器
+$ docker run -i -t ubuntu /bin/bash 
+# or
+$ docker run -it 4ef /bin/bash
+# 其中 -i, 交互模式，让输入输出都在标准控制台进行；-d，则进入后台
+# -t, 为新创建的容器分配一个伪终端
+# ubuntu, 用于创建容器的镜像名，可用ID来代替（前3位足够）
+# /bin/bash， 在新建容器中运行的命令，可以为任意Linux命令
+
+### 离开当前容器,返回宿主机终端，使用组合键 &amp;quot;Ctrl+P&amp;quot; 和 &amp;quot;Ctrl+Q&amp;quot;
+
+### 查看当前活动的容器
+$ docker ps
+# CONTAINER ID  IMAGE  COMMAND  CREATED   STATUS   PORTS NAME
+# 610xxxx  ubuntu:latest  &amp;quot;/bin/bash&amp;quot; 1 minute ago Up 1 minute ago prickly_wilson
+
+### 宿主机终端与某个容器建立连接
+$ docker attach 610
+
+### 从容器创建Docker镜像
+$ docker commit -m &amp;quot;hhahaha&amp;quot; 610 ubuntu:hhh
+# -m, 新镜像说明
+# 610， 某个容器的ID
+# ubuntu:hhh， 命名最好不要这么随意
+# 那么接下来可以查看新生成的镜像，命令 docker images
+
+### 基于新的镜像创建一个新的容器(一样的)
+$ docker run -it ubuntu:hhh /bin/bash
+
+### 给镜像重命名(方便记忆)
+$ docker tag IMAGEID(image id) REPOSITORY:TAG
+
+### 给容器重命名
+$ docker rename old-container-name new-container-name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;安装nvidia-docker2&#34;&gt;安装nvidia docker2&lt;/h2&gt;
+
+&lt;p&gt;nvidia-docker是在docker的基础上又安装了cudnn、cuda的一些东西，省去了自己去配对cuda和cudnn的安装版本问题。它有很多版本，有cuda10，有cuda9，最新版是cuda10.1，你可以安装完成之后通过tag去切换，这点真的很棒。具体安装过程如下：&lt;a href=&#34;https://github.com/NVIDIA/nvidia-docker&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;nvidia-docker&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
+sudo apt-get purge -y nvidia-docker
+
+# Add the package repositories
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+
+# Install nvidia-docker2 and reload the Docker daemon configuration
+sudo apt-get install -y nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# Test nvidia-smi with the latest official CUDA image ,其中cuda:9.0-base就是tag，要加--runtime=nvidia否则用不了cuda
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;安装pytorch-这里以pytorch为例-当然你也可以安装其他的框架&#34;&gt;安装pytorch（这里以pytorch为例，当然你也可以安装其他的框架）&lt;/h2&gt;
+
+&lt;p&gt;安装命令在&lt;a href=&#34;https://pytorch.org/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;pytorch&lt;/a&gt;首页已经给出.
+- 验证安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python
+$ import torch
+$ print torch.cuda.is_available()
+# if &#39;True&#39;, congratulation; if &#39;False&#39;, please check again and again.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PS
+docker有个不好的地方是，你安装了东西或者运行程序产生了数据，一旦你关掉了docker，你安装的东西和数据就全部消失了，怎么办？commit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;nvidia-docker commit -m &#39;hhhh&#39; xxx xxxx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要记得在docker关闭之前commit，如果是重要的安装或者耗时安装，安装完就先commit下保存起来。&lt;/p&gt;
+
+&lt;h2 id=&#34;pytharm上使用docker&#34;&gt;pytharm上使用docker&lt;/h2&gt;
+
+&lt;p&gt;docker一般通过命令行进行交互，这个时候我们如果想断点调试一些代码就比较麻烦了，好在pycharm提供了docker的调试机制，这点很好。关于pycharm如何使用docker，可以参考&lt;a href=&#34;https://blog.csdn.net/ryanpinwei/article/details/78806052&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;这篇文章&lt;/a&gt;，有几个小坑填下就好了。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>快速实现人脸识别和语音播报</title>
+      <link>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</guid>
+      <description>
+
+&lt;p&gt;主要思路是，通过opencv打开摄像头，获取图片，利用百度AI开放平台的人脸检测接口（事先会在百度后台录入人脸信息），识别出人脸信息，然后利用科大讯飞的在线语音合成接口，将识别到的内容转换成自己想要播放的音频，通过系统api播放音频。&lt;/p&gt;
+
+&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;python&lt;/li&gt;
+&lt;li&gt;opencv&lt;/li&gt;
+&lt;li&gt;网络&lt;/li&gt;
+&lt;li&gt;科大讯飞接口&lt;/li&gt;
+&lt;li&gt;百度AI接口人脸识别&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;主要流程&#34;&gt;主要流程&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;打开摄像头，读取图像&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cap = cv.VideoCapture(0)
+
+while(1):
+    ret,frame = cap.read()
+    smallImg = cv.resize(frame, (320, 240), interpolation=cv.INTER_CUBIC)
+    cv.imshow(&amp;quot;capture&amp;quot;,smallImg)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;开子线程进行图像的人脸识别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyFaceThread(threading.Thread):
+def __init__(self,token,callback):
+    super(MyFaceThread, self).__init__()
+    self.token=token
+    self.callback = callback
+def run(self):
+    while (1):
+        global theImg
+        global theResult
+        lock.acquire()
+        frame = theImg
+        lock.release()
+        if type(frame) != None:
+            try:
+                if frame.size &amp;gt; 0:
+                    faceResult = checkFace(self.token, frame)
+                    theResult,faceList = showCheckFace(faceResult, frame)
+                    self.callback(faceList)
+            except:
+                pass
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中 checkFace为检测人脸&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;百度人脸检测&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;先获取百度ai的token&lt;/li&gt;
+&lt;li&gt;调用人脸识别接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通过
+&lt;a href=&#34;https://aip.baidubce.com/rest/2.0/face/v3/search&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://aip.baidubce.com/rest/2.0/face/v3/search&lt;/a&gt;
+接口获取到当前相机图片中是否存在你需要检测的人脸，根据接口返回        的json数据去判断是否存在、是谁。
+接口的具体参数参考网址：&lt;a href=&#34;https://ai.baidu.com/docs#/Face-Search-V3/top&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://ai.baidu.com/docs#/Face-Search-V3/top&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在线语音合成&lt;/p&gt;
+
+&lt;p&gt;参考链接：&lt;a href=&#34;https://doc.xfyun.cn/rest_api/语音合成.html&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://doc.xfyun.cn/rest_api/语音合成.html&lt;/a&gt;
+代码如下：&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;def createVoiceByText(mytext):
+    wavfile = mytext + &amp;quot;.wav&amp;quot;
+    mp3file = mytext + &amp;quot;.mp3&amp;quot;
+    needRequest = False
+    if AUE == &amp;quot;raw&amp;quot;:
+        if not os.path.exists(wavfile):
+            needRequest = True
+    else:
+        if not os.path.exists(mp3file):
+            needRequest = True
+    if needRequest:
+        r = requests.post(URL, headers=getHeader(), data=getBody(mytext))
+        contentType = r.headers[&#39;Content-Type&#39;]
+        if contentType == &amp;quot;audio/mpeg&amp;quot;:
+            sid = r.headers[&#39;sid&#39;]
+            if AUE == &amp;quot;raw&amp;quot;:
+                writeFile(wavfile, r.content)
+            else:
+                writeFile(wavfile, r.content)
+        else:
+            print r.text
+    if AUE == &amp;quot;raw&amp;quot;:
+        return wavfile
+    else:
+        return  mp3file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;优化&#34;&gt;优化&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;人脸对比每时每刻都在检测，有点浪费资源，先用opencv的人脸检测检测到人脸之后再调用百度人脸api&lt;/li&gt;
+&lt;li&gt;现在一识别到人脸就会播放音频，建立一个列表，去重，在一定时间范围内播放过的音频不再播放&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;全部代码&#34;&gt;全部代码&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;# encoding=utf-8
+
+import cv2 as cv
+import numpy as np
+import time,json,base64,os,threading
+import urllib,urllib2,sys,ssl
+import requests,re,hashlib,struct,pyglet
+
+theImg = None
+theResult = None
+lock = threading.RLock()
+
+URL = &amp;quot;http://api.xfyun.cn/v1/service/v1/tts&amp;quot;
+AUE = &amp;quot;raw&amp;quot;
+APPID = &amp;quot;xxx&amp;quot;
+API_KEY = &amp;quot;xxx&amp;quot;
+
+
+def getHeader():
+        curTime = str(int(time.time()))
+        param = &amp;quot;{\&amp;quot;aue\&amp;quot;:\&amp;quot;&amp;quot;+AUE+&amp;quot;\&amp;quot;,&amp;quot; \
+                                &amp;quot;\&amp;quot;speed\&amp;quot;:\&amp;quot;20\&amp;quot;,&amp;quot; \
+                                  &amp;quot;\&amp;quot;auf\&amp;quot;:\&amp;quot;audio/L16;rate=16000\&amp;quot;,&amp;quot; \
+                                  &amp;quot;\&amp;quot;voice_name\&amp;quot;:\&amp;quot;xiaoyan\&amp;quot;,&amp;quot; \
+                                  &amp;quot;\&amp;quot;engine_type\&amp;quot;:\&amp;quot;intp65\&amp;quot;}&amp;quot;
+        paramBase64 = base64.b64encode(param)
+        m2 = hashlib.md5()
+        m2.update(API_KEY + curTime + paramBase64)
+        checkSum = m2.hexdigest()
+        header ={
+                &#39;X-CurTime&#39;:curTime,
+                &#39;X-Param&#39;:paramBase64,
+                &#39;X-Appid&#39;:APPID,
+                &#39;X-CheckSum&#39;:checkSum,
+                &#39;X-Real-Ip&#39;:&#39;127.0.0.1&#39;,
+                &#39;Content-Type&#39;:&#39;application/x-www-form-urlencoded; charset=utf-8&#39;,
+        }
+        return header
+
+def getBody(text):
+        data = {&#39;text&#39;:text}
+        return data
+
+def writeFile(file, content):
+    with open(file, &#39;wb&#39;) as f:
+        f.write(content)
+    f.close()
+
+
+def createVoiceByText(mytext):
+    wavfile = mytext + &amp;quot;.wav&amp;quot;
+    mp3file = mytext + &amp;quot;.mp3&amp;quot;
+    needRequest = False
+    if AUE == &amp;quot;raw&amp;quot;:
+        if not os.path.exists(wavfile):
+            needRequest = True
+    else:
+        if not os.path.exists(mp3file):
+            needRequest = True
+    if needRequest:
+        r = requests.post(URL, headers=getHeader(), data=getBody(mytext))
+        contentType = r.headers[&#39;Content-Type&#39;]
+        if contentType == &amp;quot;audio/mpeg&amp;quot;:
+            sid = r.headers[&#39;sid&#39;]
+            if AUE == &amp;quot;raw&amp;quot;:
+                writeFile(wavfile, r.content)
+            else:
+                writeFile(wavfile, r.content)
+        else:
+            print r.text
+    if AUE == &amp;quot;raw&amp;quot;:
+        return wavfile
+    else:
+        return  mp3file
+
+
+def getBaiduToken():
+    apikey = &#39;xx&#39;
+    secretkey = &#39;xx&#39;
+    host = &#39;https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&amp;amp;client_id=&#39;+ apikey+&#39;&amp;amp;client_secret=&#39;+secretkey
+    request = urllib2.Request(host)
+    request.add_header(&#39;Content-Type&#39;, &#39;application/json; charset=UTF-8&#39;)
+    response = urllib2.urlopen(request)
+    content = response.read()
+    if (content):
+        jsonData = json.loads(content)
+        print jsonData[&#39;access_token&#39;]
+        return jsonData[&#39;access_token&#39;]
+
+
+def getFace(token,img):
+    imagefile = &#39;test.png&#39;
+    cv.imwrite(imagefile, img)
+    with open(imagefile, &#39;rb&#39;) as fp:
+        imgbase64 = base64.b64encode(fp.read())
+
+        request_url = &amp;quot;https://aip.baidubce.com/rest/2.0/face/v3/detect&amp;quot;
+
+        params = &amp;quot;{\&amp;quot;image\&amp;quot;:\&amp;quot;&amp;quot; \
+                 + imgbase64 + \
+                 &amp;quot;\&amp;quot;,&amp;quot; \
+                 &amp;quot;\&amp;quot;image_type\&amp;quot;:\&amp;quot;BASE64\&amp;quot;,&amp;quot; \
+                 &amp;quot;\&amp;quot;face_field\&amp;quot;:\&amp;quot;faceshape,facetype\&amp;quot;}&amp;quot;
+
+        access_token = token
+        request_url = request_url + &amp;quot;?access_token=&amp;quot; + access_token
+        request = urllib2.Request(url=request_url, data=params)
+        request.add_header(&#39;Content-Type&#39;, &#39;application/json&#39;)
+        response = urllib2.urlopen(request)
+        content = response.read()
+        if content:
+            return content
+        else:
+            return None
+
+def checkFace(token,img):
+    request_url = &amp;quot;https://aip.baidubce.com/rest/2.0/face/v3/search&amp;quot;
+
+    imagefile = &#39;test.png&#39;
+    cv.imwrite(imagefile, img)
+    with open(imagefile, &#39;rb&#39;) as fp:
+        imgbase64 = base64.b64encode(fp.read())
+        params = &amp;quot;{\&amp;quot;image\&amp;quot;:\&amp;quot;&amp;quot; \
+                  + imgbase64 + \
+                  &amp;quot;\&amp;quot;,&amp;quot; \
+                 &amp;quot;\&amp;quot;image_type\&amp;quot;:\&amp;quot;BASE64\&amp;quot;,&amp;quot; \
+                 &amp;quot;\&amp;quot;group_id_list\&amp;quot;:\&amp;quot;test\&amp;quot;,&amp;quot; \
+                 &amp;quot;\&amp;quot;quality_control\&amp;quot;:\&amp;quot;LOW\&amp;quot;,\&amp;quot;liveness_control\&amp;quot;:\&amp;quot;NORMAL\&amp;quot;}&amp;quot;
+
+        access_token = token
+        request_url = request_url + &amp;quot;?access_token=&amp;quot; + access_token
+        request = urllib2.Request(url=request_url, data=params)
+        request.add_header(&#39;Content-Type&#39;, &#39;application/json&#39;)
+        response = urllib2.urlopen(request)
+        content = response.read()
+        if content:
+            print content
+            return  content
+        else:
+            return  None
+
+
+def showCheckFace(faceResult,img):
+    faceList = []
+    if faceResult == None:
+        pass
+    else:
+        jsonData = json.loads(faceResult)
+        if jsonData[&#39;error_code&#39;] ==0:
+            for i in range(len(jsonData[&#39;result&#39;][&#39;user_list&#39;])):
+                faceItem = jsonData[&#39;result&#39;][&#39;user_list&#39;][i]
+                if faceItem[&#39;score&#39;]&amp;gt;50:
+                    theUserId = faceItem[&#39;user_id&#39;]
+                    strUserId = theUserId.encode(&#39;unicode-escape&#39;).decode(&#39;string_escape&#39;)
+                    if cmp(strUserId,&#39;huangzong&#39;)== 0:
+                        cv.putText(img, &#39;hello，huang zong&#39;, (30, 30), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                        faceList.append( createVoiceByText(&#39;黄总好&#39;))
+                    if cmp(strUserId,&#39;chenggang&#39;)== 0:
+                        cv.putText(img, &#39;hello，chenggang&#39;, (30, 30), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                        testStr = &#39;当无人车还是一个概念化的东西时，已经有这么一群人在做智能交通、无人驾驶的相关研究。&#39;
+                        faceList.append(createVoiceByText(testStr))
+                    if cmp(strUserId, &#39;wangxin&#39;) == 0:
+                        faceList.append(createVoiceByText(&amp;quot;王鑫你今天洗脸了吗&amp;quot;))
+
+
+            return img,faceList
+    return None
+
+
+def drawFaceResult(faceResult,img):
+    if faceResult == None:
+        pass
+    else:
+        jsonData = json.loads(faceResult)
+        if jsonData[&#39;error_code&#39;] ==0:
+            for i in range(jsonData[&#39;result&#39;][&#39;face_num&#39;]):
+                faceItem = jsonData[&#39;result&#39;][&#39;face_list&#39;][i]
+                left = int(faceItem[&#39;location&#39;][&#39;left&#39;])
+                top = int(faceItem[&#39;location&#39;][&#39;top&#39;])
+                right  = left + int(faceItem[&#39;location&#39;][&#39;width&#39;])
+                bottom = top + int(faceItem[&#39;location&#39;][&#39;height&#39;])
+                print (left,right,top,bottom)
+                cv.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 4)
+            return img
+    return None
+
+def createFace(token):
+    while (1):
+        global theImg
+        global  theResult
+        lock.acquire()
+        frame = theImg
+        lock.release()
+        if type(frame) != None:
+            try:
+                if frame.size&amp;gt;0:
+                    # faceResult = getFace(token, frame)
+                    # theResult = drawFaceResult(faceResult, frame)
+                    faceResult = checkFace(token, frame)
+                    theResult,faceList = showCheckFace(faceResult, frame)
+            except:
+                pass
+
+def createImg():
+    global  theImg
+    while (1):
+        ret, frame = cap.read()
+        lock.acquire()
+        theImg = frame
+        lock.release()
+        cv.imshow(&amp;quot;capture&amp;quot;, frame)
+        if cv.waitKey(1) &amp;amp; 0xFF == ord(&#39;q&#39;):
+            break
+
+def faceCallback(list):
+    for i in range(len(list)):
+        wavfile = list[i]
+        music = pyglet.resource.media(wavfile)
+        os.system(&#39;afplay &#39;+wavfile)
+        print music.duration
+
+class MyFaceThread(threading.Thread):
+    def __init__(self,token,callback):
+        super(MyFaceThread, self).__init__()
+        self.token=token
+        self.callback = callback
+    def run(self):
+        while (1):
+            global theImg
+            global theResult
+            lock.acquire()
+            frame = theImg
+            lock.release()
+            if type(frame) != None:
+                try:
+                    if frame.size &amp;gt; 0:
+                        faceResult = checkFace(self.token, frame)
+                        theResult,faceList = showCheckFace(faceResult, frame)
+                        self.callback(faceList)
+                except:
+                    pass
+
+
+
+if __name__ == &#39;__main__&#39;:
+    baiduToken =  getBaiduToken()
+
+    faceCreater = MyFaceThread(baiduToken,faceCallback)
+    faceCreater.start()
+
+    cap = cv.VideoCapture(0)
+
+    while(1):
+        ret,frame = cap.read()
+        smallImg = cv.resize(frame, (320, 240), interpolation=cv.INTER_CUBIC)
+        cv.imshow(&amp;quot;capture&amp;quot;,smallImg)
+        if type(theResult) != &#39;NoneType&#39;:
+            try:
+                if theResult.size&amp;gt;0:
+                    cv.imshow(&amp;quot;result&amp;quot;, theResult)
+            except:
+                pass
+        lock.acquire()
+        theImg = smallImg
+        lock.release()
+        if cv.waitKey(1) &amp;amp; 0xFF == ord(&#39;q&#39;):
+            break
+    cap.release()
+    cv.destroyAllWindows()
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>阿里云部署flask，调用tensorflow跑模型</title>
+      <link>https://icaruslucifer.github.io/blog/tensorflow-flask/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/tensorflow-flask/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;踩了坑，吐血总结&lt;/p&gt;
+
+&lt;p&gt;需求：通过tensorflow跑深度学习模型，得到模型文件（.pb），然后编写载入模型进行预测代码，在本地电脑测试通过后，
+通过flask的web框架部署到阿里云上&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;安装flask       &amp;lsquo;sudo pip install flask&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;安装Gunicorn    &amp;lsquo;sudo pip install gunicorn&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;安装nginx       &amp;lsquo;sudo apt-get install nginx&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;安装tensorflow  &amp;lsquo;sudo pip install tensorflow&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在网上看到有些是flask+uwsgi+nginx的方式，做过尝试，结果跑tensorflow的代码，会卡在sess.run(),怀疑过是不是阿里云内存不够，也怀疑过
+是不是tensorflow版本不对，最终定位是uwsgi的问题，换成gunicorn之后就ok了，这个问题折腾了1天多。&lt;/p&gt;
+
+&lt;h4 id=&#34;flask&#34;&gt;flask&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;#main.py
+
+from flask import Flask, render_template, jsonify, request, make_response, send_from_directory, abort
+import config
+import time
+import os
+import base64
+from gevent import monkey
+monkey.patch_all()
+
+from  gevent import  pywsgi
+
+import pbtest
+
+# 上传文件
+@app.route(&#39;/api/up_photo&#39;, methods=[&#39;POST&#39;], strict_slashes=False)
+def api_upload():
+    file_dir = os.path.join(basedir, app.config[&#39;UPLOAD_FOLDER&#39;])
+    if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+    f = request.files[&#39;photo&#39;]
+    if f and allowed_file(f.filename):
+        f.save(os.path.join(file_dir, f.filename))
+        pbtest.muse(f.filename)  # tensorflow跑模型的方法
+        return jsonify({&amp;quot;success&amp;quot;: 0, &amp;quot;msg&amp;quot;: &amp;quot;上传成功&amp;quot;})
+    else:
+        return jsonify({&amp;quot;error&amp;quot;: 1001, &amp;quot;msg&amp;quot;: &amp;quot;上传失败&amp;quot;})
+        
+if __name__ == &#39;__main__&#39;:
+    server = pywsgi.WSGIServer((&#39;0.0.0.0&#39;, 5001), app)
+    server.serve_forever()
+    #app.run()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;gunicorn&#34;&gt;Gunicorn&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;    gunicorn -w 4 -b 127.0.0.1:8080 main:app
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中main是启动flask的py文件，app是flask实例 的名称&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;这里要注意的是 -b 127.0.0.1:8080,如果你不想用nginx，这里设置成0.0.0.0:8080,执行上面的命令就可以在本地浏览器访问阿里云的flask服务了&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;nginx&#34;&gt;nginx&lt;/h4&gt;
+
+&lt;p&gt;安装完成nginx之后，新建一个default文件；编写如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;server {
+    listen 80;
+    server_name example.org; # 这是HOST机器的外部域名，用地址也行
+
+    location / {
+        proxy_pass http://127.0.0.1:8080; # 这里是指向 gunicorn host 的服务地址
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;替换文件到&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;/etc/nginx/site-avalidable/default
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-angular2html&#34;&gt;sudo service nginx restart
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://icaruslucifer.github.io/blog/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/readme/</guid>
+      <description>&lt;p&gt;blog 提交方法
+1.现在content目录下新增md文件，content 是一个github仓库
+2. 执行hugo server 命令 看效果
+3.执行hugo命令生成静态网站。在public文件夹中
+4、将public文件提交github.io仓库中
+5、图片新增问题，把图片放在content/blog/assets里，在markdown编写时在markdown的地址中加上“/blog/assets/”+图片名称&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

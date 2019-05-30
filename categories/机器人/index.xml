@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>机器人 on 伊卡洛斯</title>
+    <link>https://icaruslucifer.github.io/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/</link>
+    <description>Recent content in 机器人 on 伊卡洛斯</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 May 2019 17:01:13 +0800</lastBuildDate>
+    
+	<atom:link href="https://icaruslucifer.github.io/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ROS坑</title>
+      <link>https://icaruslucifer.github.io/blog/ros_keng/</link>
+      <pubDate>Thu, 30 May 2019 17:01:13 +0800</pubDate>
+      
+      <guid>https://icaruslucifer.github.io/blog/ros_keng/</guid>
+      <description>ROS launch 文件中 param 设置的坑 launch 文件中 param 一般不需要配置类型，但所有参数值都会使用双引号包含，会自动进行类型推导，规则如下（参见 roslaunch/XML/param）
+ 数字带有 &amp;lsquo;.&amp;rsquo; 的是浮点数，其余是整数。 &amp;ldquo;true&amp;rdquo; 和 &amp;ldquo;false&amp;rdquo; 是布尔量，大小写不敏感。 其他所有值都认为是字符串。  其中一个坑就是，如果一个值类型本来是字符串，但是值是数字，那么会自动推导成数字，导致程序解析时无法获取到想要的字符串的问题。
+解决方法，在参数属性中配置 type 字段：
+ str: 字符串 int: 整形 double: 浮点 bool: 布尔量 yaml: yaml 内容  ROS 编写urdf  有时候明明代码编写没问题，但是运行之后显示“No transform form 【A】 to 【B】” 可是尝试以下方式： 这个时候需要看看是不是xml编写不规范，去一些xml格式网站把内容格式化； 安装 sudo apt-get install unicode ； 重启rviz，roscore  ROS 编译含msg的工程不通过 几种方法
+ catkin_make -j1
+ 先单独编译msg包 catkin_make -DCATKIN_WHITELIST_PACKAGES=&amp;ldquo;beginner_tutorials&amp;rdquo;
+ 先单独编译msg包
+  catkin_make xfuture_msgs_gencpp</description>
+    </item>
+    
+  </channel>
+</rss>

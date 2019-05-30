@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="伊卡洛斯">
+  
+  
+  
+  <link rel="prev" href="https://icaruslucifer.github.io/blog/tensorflow-flask/" />
+  <link rel="next" href="https://icaruslucifer.github.io/blog/docker_ai/" />
+  <link rel="canonical" href="https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           快速实现人脸识别和语音播报 | 伊卡洛斯
+       
+  </title>
+  <meta name="title" content="快速实现人脸识别和语音播报 | 伊卡洛斯">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https://icaruslucifer.github.io"
+    },
+    "articleSection" : "blog",
+    "name" : "快速实现人脸识别和语音播报",
+    "headline" : "快速实现人脸识别和语音播报",
+    "description" : "主要思路是，通过opencv打开摄像头，获取图片，利用百度AI开放平台的人脸检测接口（事先会在百度后台录入人脸信息），识别出人脸信息，然后利用科大讯飞的在线语音合成接口，将识别到的内容转换成自己想要播放的音频，通过系统api播放音频。
+依赖  python opencv 网络 科大讯飞接口 百度AI接口人脸识别  主要流程  打开摄像头，读取图像
+cap = cv.VideoCapture(0) while(1): ret,frame = cap.read() smallImg = cv.resize(frame, (320, 240), interpolation=cv.INTER_CUBIC) cv.imshow(&quot;capture&quot;,smallImg)  开子线程进行图像的人脸识别
+class MyFaceThread(threading.Thread): def __init__(self,token,callback): super(MyFaceThread, self).__init__() self.token=token self.callback = callback def run(self): while (1): global theImg global theResult lock.acquire() frame = theImg lock.release() if type(frame) != None: try: if frame.size &gt; 0: faceResult = checkFace(self.token, frame) theResult,faceList = showCheckFace(faceResult, frame) self.callback(faceList) except: pass  其中 checkFace为检测人脸",
+    "inLanguage" : "en-us",
+    "author" : "伊卡洛斯",
+    "creator" : "伊卡洛斯",
+    "publisher": "伊卡洛斯",
+    "accountablePerson" : "伊卡洛斯",
+    "copyrightHolder" : "伊卡洛斯",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-05-30 00:00:00 &#43;0000 UTC",
+    "dateModified" : "2019-05-30 00:00:00 &#43;0000 UTC",
+    "url" : "https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/",
+    "wordCount" : "777",
+    "keywords" : [ "图像处理", "伊卡洛斯"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://icaruslucifer.github.io">伊卡洛斯</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/blog/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">快速实现人脸识别和语音播报</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://icaruslucifer.github.io" rel="author">伊卡洛斯</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-05-30 itemprop="datePublished">May 30, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://icaruslucifer.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"> 图像处理 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<p>主要思路是，通过opencv打开摄像头，获取图片，利用百度AI开放平台的人脸检测接口（事先会在百度后台录入人脸信息），识别出人脸信息，然后利用科大讯飞的在线语音合成接口，将识别到的内容转换成自己想要播放的音频，通过系统api播放音频。</p>
+
+<h2 id="依赖">依赖</h2>
+
+<ul>
+<li>python</li>
+<li>opencv</li>
+<li>网络</li>
+<li>科大讯飞接口</li>
+<li>百度AI接口人脸识别</li>
+</ul>
+
+<h2 id="主要流程">主要流程</h2>
+
+<ul>
+<li><p>打开摄像头，读取图像</p>
+
+<pre><code>cap = cv.VideoCapture(0)
+
+while(1):
+    ret,frame = cap.read()
+    smallImg = cv.resize(frame, (320, 240), interpolation=cv.INTER_CUBIC)
+    cv.imshow(&quot;capture&quot;,smallImg)
+</code></pre></li>
+
+<li><p>开子线程进行图像的人脸识别</p>
+
+<pre><code>class MyFaceThread(threading.Thread):
+def __init__(self,token,callback):
+    super(MyFaceThread, self).__init__()
+    self.token=token
+    self.callback = callback
+def run(self):
+    while (1):
+        global theImg
+        global theResult
+        lock.acquire()
+        frame = theImg
+        lock.release()
+        if type(frame) != None:
+            try:
+                if frame.size &gt; 0:
+                    faceResult = checkFace(self.token, frame)
+                    theResult,faceList = showCheckFace(faceResult, frame)
+                    self.callback(faceList)
+            except:
+                pass
+</code></pre>
+
+<p>其中 checkFace为检测人脸</p></li>
+
+<li><p>百度人脸检测</p>
+
+<ul>
+<li>先获取百度ai的token</li>
+<li>调用人脸识别接口</li>
+</ul>
+
+<p>通过
+<a href="https://aip.baidubce.com/rest/2.0/face/v3/search" rel="nofollow noreferrer" target="_blank">https://aip.baidubce.com/rest/2.0/face/v3/search</a>
+接口获取到当前相机图片中是否存在你需要检测的人脸，根据接口返回        的json数据去判断是否存在、是谁。
+接口的具体参数参考网址：<a href="https://ai.baidu.com/docs#/Face-Search-V3/top" rel="nofollow noreferrer" target="_blank">https://ai.baidu.com/docs#/Face-Search-V3/top</a></p></li>
+
+<li><p>在线语音合成</p>
+
+<p>参考链接：<a href="https://doc.xfyun.cn/rest_api/语音合成.html" rel="nofollow noreferrer" target="_blank">https://doc.xfyun.cn/rest_api/语音合成.html</a>
+代码如下：</p></li>
+</ul>
+
+<pre><code>def createVoiceByText(mytext):
+    wavfile = mytext + &quot;.wav&quot;
+    mp3file = mytext + &quot;.mp3&quot;
+    needRequest = False
+    if AUE == &quot;raw&quot;:
+        if not os.path.exists(wavfile):
+            needRequest = True
+    else:
+        if not os.path.exists(mp3file):
+            needRequest = True
+    if needRequest:
+        r = requests.post(URL, headers=getHeader(), data=getBody(mytext))
+        contentType = r.headers['Content-Type']
+        if contentType == &quot;audio/mpeg&quot;:
+            sid = r.headers['sid']
+            if AUE == &quot;raw&quot;:
+                writeFile(wavfile, r.content)
+            else:
+                writeFile(wavfile, r.content)
+        else:
+            print r.text
+    if AUE == &quot;raw&quot;:
+        return wavfile
+    else:
+        return  mp3file
+</code></pre>
+
+<h2 id="优化">优化</h2>
+
+<ul>
+<li>人脸对比每时每刻都在检测，有点浪费资源，先用opencv的人脸检测检测到人脸之后再调用百度人脸api</li>
+<li>现在一识别到人脸就会播放音频，建立一个列表，去重，在一定时间范围内播放过的音频不再播放</li>
+</ul>
+
+<h2 id="全部代码">全部代码</h2>
+
+<pre><code># encoding=utf-8
+
+import cv2 as cv
+import numpy as np
+import time,json,base64,os,threading
+import urllib,urllib2,sys,ssl
+import requests,re,hashlib,struct,pyglet
+
+theImg = None
+theResult = None
+lock = threading.RLock()
+
+URL = &quot;http://api.xfyun.cn/v1/service/v1/tts&quot;
+AUE = &quot;raw&quot;
+APPID = &quot;xxx&quot;
+API_KEY = &quot;xxx&quot;
+
+
+def getHeader():
+        curTime = str(int(time.time()))
+        param = &quot;{\&quot;aue\&quot;:\&quot;&quot;+AUE+&quot;\&quot;,&quot; \
+                                &quot;\&quot;speed\&quot;:\&quot;20\&quot;,&quot; \
+                                  &quot;\&quot;auf\&quot;:\&quot;audio/L16;rate=16000\&quot;,&quot; \
+                                  &quot;\&quot;voice_name\&quot;:\&quot;xiaoyan\&quot;,&quot; \
+                                  &quot;\&quot;engine_type\&quot;:\&quot;intp65\&quot;}&quot;
+        paramBase64 = base64.b64encode(param)
+        m2 = hashlib.md5()
+        m2.update(API_KEY + curTime + paramBase64)
+        checkSum = m2.hexdigest()
+        header ={
+                'X-CurTime':curTime,
+                'X-Param':paramBase64,
+                'X-Appid':APPID,
+                'X-CheckSum':checkSum,
+                'X-Real-Ip':'127.0.0.1',
+                'Content-Type':'application/x-www-form-urlencoded; charset=utf-8',
+        }
+        return header
+
+def getBody(text):
+        data = {'text':text}
+        return data
+
+def writeFile(file, content):
+    with open(file, 'wb') as f:
+        f.write(content)
+    f.close()
+
+
+def createVoiceByText(mytext):
+    wavfile = mytext + &quot;.wav&quot;
+    mp3file = mytext + &quot;.mp3&quot;
+    needRequest = False
+    if AUE == &quot;raw&quot;:
+        if not os.path.exists(wavfile):
+            needRequest = True
+    else:
+        if not os.path.exists(mp3file):
+            needRequest = True
+    if needRequest:
+        r = requests.post(URL, headers=getHeader(), data=getBody(mytext))
+        contentType = r.headers['Content-Type']
+        if contentType == &quot;audio/mpeg&quot;:
+            sid = r.headers['sid']
+            if AUE == &quot;raw&quot;:
+                writeFile(wavfile, r.content)
+            else:
+                writeFile(wavfile, r.content)
+        else:
+            print r.text
+    if AUE == &quot;raw&quot;:
+        return wavfile
+    else:
+        return  mp3file
+
+
+def getBaiduToken():
+    apikey = 'xx'
+    secretkey = 'xx'
+    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&amp;client_id='+ apikey+'&amp;client_secret='+secretkey
+    request = urllib2.Request(host)
+    request.add_header('Content-Type', 'application/json; charset=UTF-8')
+    response = urllib2.urlopen(request)
+    content = response.read()
+    if (content):
+        jsonData = json.loads(content)
+        print jsonData['access_token']
+        return jsonData['access_token']
+
+
+def getFace(token,img):
+    imagefile = 'test.png'
+    cv.imwrite(imagefile, img)
+    with open(imagefile, 'rb') as fp:
+        imgbase64 = base64.b64encode(fp.read())
+
+        request_url = &quot;https://aip.baidubce.com/rest/2.0/face/v3/detect&quot;
+
+        params = &quot;{\&quot;image\&quot;:\&quot;&quot; \
+                 + imgbase64 + \
+                 &quot;\&quot;,&quot; \
+                 &quot;\&quot;image_type\&quot;:\&quot;BASE64\&quot;,&quot; \
+                 &quot;\&quot;face_field\&quot;:\&quot;faceshape,facetype\&quot;}&quot;
+
+        access_token = token
+        request_url = request_url + &quot;?access_token=&quot; + access_token
+        request = urllib2.Request(url=request_url, data=params)
+        request.add_header('Content-Type', 'application/json')
+        response = urllib2.urlopen(request)
+        content = response.read()
+        if content:
+            return content
+        else:
+            return None
+
+def checkFace(token,img):
+    request_url = &quot;https://aip.baidubce.com/rest/2.0/face/v3/search&quot;
+
+    imagefile = 'test.png'
+    cv.imwrite(imagefile, img)
+    with open(imagefile, 'rb') as fp:
+        imgbase64 = base64.b64encode(fp.read())
+        params = &quot;{\&quot;image\&quot;:\&quot;&quot; \
+                  + imgbase64 + \
+                  &quot;\&quot;,&quot; \
+                 &quot;\&quot;image_type\&quot;:\&quot;BASE64\&quot;,&quot; \
+                 &quot;\&quot;group_id_list\&quot;:\&quot;test\&quot;,&quot; \
+                 &quot;\&quot;quality_control\&quot;:\&quot;LOW\&quot;,\&quot;liveness_control\&quot;:\&quot;NORMAL\&quot;}&quot;
+
+        access_token = token
+        request_url = request_url + &quot;?access_token=&quot; + access_token
+        request = urllib2.Request(url=request_url, data=params)
+        request.add_header('Content-Type', 'application/json')
+        response = urllib2.urlopen(request)
+        content = response.read()
+        if content:
+            print content
+            return  content
+        else:
+            return  None
+
+
+def showCheckFace(faceResult,img):
+    faceList = []
+    if faceResult == None:
+        pass
+    else:
+        jsonData = json.loads(faceResult)
+        if jsonData['error_code'] ==0:
+            for i in range(len(jsonData['result']['user_list'])):
+                faceItem = jsonData['result']['user_list'][i]
+                if faceItem['score']&gt;50:
+                    theUserId = faceItem['user_id']
+                    strUserId = theUserId.encode('unicode-escape').decode('string_escape')
+                    if cmp(strUserId,'huangzong')== 0:
+                        cv.putText(img, 'hello，huang zong', (30, 30), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                        faceList.append( createVoiceByText('黄总好'))
+                    if cmp(strUserId,'chenggang')== 0:
+                        cv.putText(img, 'hello，chenggang', (30, 30), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+                        testStr = '当无人车还是一个概念化的东西时，已经有这么一群人在做智能交通、无人驾驶的相关研究。'
+                        faceList.append(createVoiceByText(testStr))
+                    if cmp(strUserId, 'wangxin') == 0:
+                        faceList.append(createVoiceByText(&quot;王鑫你今天洗脸了吗&quot;))
+
+
+            return img,faceList
+    return None
+
+
+def drawFaceResult(faceResult,img):
+    if faceResult == None:
+        pass
+    else:
+        jsonData = json.loads(faceResult)
+        if jsonData['error_code'] ==0:
+            for i in range(jsonData['result']['face_num']):
+                faceItem = jsonData['result']['face_list'][i]
+                left = int(faceItem['location']['left'])
+                top = int(faceItem['location']['top'])
+                right  = left + int(faceItem['location']['width'])
+                bottom = top + int(faceItem['location']['height'])
+                print (left,right,top,bottom)
+                cv.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 4)
+            return img
+    return None
+
+def createFace(token):
+    while (1):
+        global theImg
+        global  theResult
+        lock.acquire()
+        frame = theImg
+        lock.release()
+        if type(frame) != None:
+            try:
+                if frame.size&gt;0:
+                    # faceResult = getFace(token, frame)
+                    # theResult = drawFaceResult(faceResult, frame)
+                    faceResult = checkFace(token, frame)
+                    theResult,faceList = showCheckFace(faceResult, frame)
+            except:
+                pass
+
+def createImg():
+    global  theImg
+    while (1):
+        ret, frame = cap.read()
+        lock.acquire()
+        theImg = frame
+        lock.release()
+        cv.imshow(&quot;capture&quot;, frame)
+        if cv.waitKey(1) &amp; 0xFF == ord('q'):
+            break
+
+def faceCallback(list):
+    for i in range(len(list)):
+        wavfile = list[i]
+        music = pyglet.resource.media(wavfile)
+        os.system('afplay '+wavfile)
+        print music.duration
+
+class MyFaceThread(threading.Thread):
+    def __init__(self,token,callback):
+        super(MyFaceThread, self).__init__()
+        self.token=token
+        self.callback = callback
+    def run(self):
+        while (1):
+            global theImg
+            global theResult
+            lock.acquire()
+            frame = theImg
+            lock.release()
+            if type(frame) != None:
+                try:
+                    if frame.size &gt; 0:
+                        faceResult = checkFace(self.token, frame)
+                        theResult,faceList = showCheckFace(faceResult, frame)
+                        self.callback(faceList)
+                except:
+                    pass
+
+
+
+if __name__ == '__main__':
+    baiduToken =  getBaiduToken()
+
+    faceCreater = MyFaceThread(baiduToken,faceCallback)
+    faceCreater.start()
+
+    cap = cv.VideoCapture(0)
+
+    while(1):
+        ret,frame = cap.read()
+        smallImg = cv.resize(frame, (320, 240), interpolation=cv.INTER_CUBIC)
+        cv.imshow(&quot;capture&quot;,smallImg)
+        if type(theResult) != 'NoneType':
+            try:
+                if theResult.size&gt;0:
+                    cv.imshow(&quot;result&quot;, theResult)
+            except:
+                pass
+        lock.acquire()
+        theImg = smallImg
+        lock.release()
+        if cv.waitKey(1) &amp; 0xFF == ord('q'):
+            break
+    cap.release()
+    cv.destroyAllWindows()
+
+</code></pre>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>伊卡洛斯 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://icaruslucifer.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">
+                    #图像处理</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://icaruslucifer.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://icaruslucifer.github.io/blog/tensorflow-flask/" class="prev" rel="prev" title="阿里云部署flask，调用tensorflow跑模型"><i class="iconfont icon-left"></i>&nbsp;阿里云部署flask，调用tensorflow跑模型</a>
+         
+        
+        <a href="https://icaruslucifer.github.io/blog/docker_ai/" class="next" rel="next" title="如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署">如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2011 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://icaruslucifer.github.io">伊卡洛斯</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
