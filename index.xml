@@ -148,7 +148,7 @@ $ sudo make clean &amp;amp;&amp;amp; make
 $ ./fluidsGL
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://img-blog.csdn.net/20180522134849230&#34; alt=&#34;cuda测试&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets/20180522134849230.png&#34; alt=&#34;cuda测试&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;出现如下页面则代表cuda安装成功。&lt;/p&gt;
 
@@ -282,7 +282,7 @@ sudo dpkg -i libcudnn6-dev_6.0.21-1+cuda8.0_arm64.deb
 
 &lt;h2 id=&#34;二维码&#34;&gt;二维码&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets//61d238c7jw1f33jbzaxkxj21e00xcq5b.jpg&#34; alt=&#34;二维码&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets/61d238c7jw1f33jbzaxkxj21e00xcq5b.jpg&#34; alt=&#34;二维码&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;QRCode 主要由以下部分组成：
   - 1 - Position Detection Pattern：位于三个角落，可以快速检测二维码位置。
@@ -308,7 +308,7 @@ zxing的识别效果比zbar好，识别效果排名：微信&amp;gt;支付宝&am
 下载地址：&lt;a href=&#34;http://mvnrepository.com/artifact/com.beust/jcommander/1.48&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;http://mvnrepository.com/artifact/com.beust/jcommander/1.48&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;下载之后放在目录下：
-&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets//A828219A-866E-4FFC-8D0F-E6F6A1FA361A.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets/A828219A-866E-4FFC-8D0F-E6F6A1FA361A.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;下面需要打开&lt;strong&gt;init&lt;/strong&gt;.py文件，修改里面的内容&lt;/p&gt;
 
