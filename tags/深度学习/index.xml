@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>深度学习 on 伊卡洛斯</title>
-    <link>http://39.100.101.231/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+    <link>https://icaruslucifer.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
     <description>Recent content in 深度学习 on 伊卡洛斯</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 30 May 2019 16:57:55 +0800</lastBuildDate>
     
-	<atom:link href="http://39.100.101.231/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://icaruslucifer.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>tensorflow-gpu 安装教程</title>
-      <link>http://39.100.101.231/blog/gpu_tensorflow/</link>
+      <link>https://icaruslucifer.github.io/blog/gpu_tensorflow/</link>
       <pubDate>Thu, 30 May 2019 16:57:55 +0800</pubDate>
       
-      <guid>http://39.100.101.231/blog/gpu_tensorflow/</guid>
+      <guid>https://icaruslucifer.github.io/blog/gpu_tensorflow/</guid>
       <description>配置如下： Ubuntu16.04 python3.5 nvidia driver GTX750 cuda 9.0 cudnn 7.1 tensorflow 1.8
  安装NVIDIA driver 查看NVIDIA driver推荐
 $ ubuntu-drivers devices == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == modalias : pci:v000010DEd00001C81sv00001028sd000011C0bc03sc00i00 vendor : NVIDIA Corporation model : GP107 [GeForce GTX 1050] driver : nvidia-driver-396 - third-party free recommended driver : nvidia-driver-390 - third-party free driver : xserver-xorg-video-nouveau - distro free builtin  安装：
@@ -26,10 +26,10 @@ $ sudo add-apt-repository ppa:graphics-drivers/ppa  测试安装是否成功</de
     
     <item>
       <title>TX2上安装tensorflow</title>
-      <link>http://39.100.101.231/blog/tx2_tensorflow/</link>
+      <link>https://icaruslucifer.github.io/blog/tx2_tensorflow/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://39.100.101.231/blog/tx2_tensorflow/</guid>
+      <guid>https://icaruslucifer.github.io/blog/tx2_tensorflow/</guid>
       <description>#
 TX2安装tensorflow-gpu版本的坑 ###tensorflow-gpu安装
  安装tensorflow-gpu版本时，用 “sudo pip install tensorflow-gpu”命令会提示你找不到tensooflow的包，不要慌，不用担心是电脑问题，也别怀疑是系统刷机没刷好，是真的找不到，为啥我在电脑上能找到呢，那就要问nivdia。 怎么解决？ 输入这个命令就可以  pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp33 tensorflow-gpu   具体参考 https://blog.csdn.net/zhangziju/article/details/85252474，请只看安装tensorflow的部分，安装cudnn的部分不适用。
@@ -41,10 +41,10 @@ sudo dpkg -i libcudnn6_6.0.21-1+cuda8.0_arm64.deb sudo dpkg -i libcudnn6-dev_6.0
     
     <item>
       <title>如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署</title>
-      <link>http://39.100.101.231/blog/docker_ai/</link>
+      <link>https://icaruslucifer.github.io/blog/docker_ai/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://39.100.101.231/blog/docker_ai/</guid>
+      <guid>https://icaruslucifer.github.io/blog/docker_ai/</guid>
       <description>现在深度学习的框架很多，tensorflow，caffe，pytorch，mxnet，大家都在比较哪个好用，哪个好部署，tensorflow部署很方便，caffe部署坑比较多，网上都有caffe远程部署的生意做了。最近也在学习深度学习，接触docker这个东西，感觉很好用，后来看到不少也是用docker的，顺着这条路一直查找，从docker到nvidia-docker，到pytorch，再到pycharm，也有些小坑，现在总结出来提供给大家。
 docker安装 docker安装建议去官网查看安装指南docker，网上有说直接通过apt-get安装的，这种方式老了，一些简单的docker可以，但是如果后面要用nvidia-docker就不要这样安装。 错误方式 apt-get -y install docker.io 正确方式 这里以ubuntu为例，去官网按照step一步一步来。 注意点： 如果按照它的安装之后，每次执行docker都需要添加sudo，这在后面通过pycharm设置docker的时候会提示没有权限，具体方法是把当前用户加入到docker用户组中，然后重启电脑。 具体操作见指南
  docker的常用命令(从别人那里copy的，多用几次就会了)  ### 显示版本信息 (与python, nvcc相比少了两个‘--’） $ docker version ### 了解当前Docker的使用状态（当前容器，镜像数目信息，存储空间占用信息， # OS内核版本， 发行版本， 硬件资源等） $ docker info ### 拉去一个镜像 ( xxxx 表示某个镜像名字，） $ docker pull xxxx # e.g. # docker pull ubuntu ### 查看系统中已有的镜像(images要带‘s&#39;) $ docker images # e.g.: # REPOSITORY TAG IMAGES ID CREATED VIRTUAL SIZE # ubuntu latest 4ef6axxxxx 5 day ago 84.</description>
@@ -52,10 +52,10 @@ docker安装 docker安装建议去官网查看安装指南docker，网上有说�
     
     <item>
       <title>阿里云部署flask，调用tensorflow跑模型</title>
-      <link>http://39.100.101.231/blog/tensorflow-flask/</link>
+      <link>https://icaruslucifer.github.io/blog/tensorflow-flask/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://39.100.101.231/blog/tensorflow-flask/</guid>
+      <guid>https://icaruslucifer.github.io/blog/tensorflow-flask/</guid>
       <description>踩了坑，吐血总结
 需求：通过tensorflow跑深度学习模型，得到模型文件（.pb），然后编写载入模型进行预测代码，在本地电脑测试通过后， 通过flask的web框架部署到阿里云上
   安装flask &amp;lsquo;sudo pip install flask&amp;rsquo; 安装Gunicorn &amp;lsquo;sudo pip install gunicorn&amp;rsquo; 安装nginx &amp;lsquo;sudo apt-get install nginx&amp;rsquo; 安装tensorflow &amp;lsquo;sudo pip install tensorflow&amp;rsquo;  在网上看到有些是flask+uwsgi+nginx的方式，做过尝试，结果跑tensorflow的代码，会卡在sess.run(),怀疑过是不是阿里云内存不够，也怀疑过 是不是tensorflow版本不对，最终定位是uwsgi的问题，换成gunicorn之后就ok了，这个问题折腾了1天多。

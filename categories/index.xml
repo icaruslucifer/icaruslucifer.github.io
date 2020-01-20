@@ -2,47 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on 伊卡洛斯</title>
-    <link>http://39.100.101.231/categories/</link>
+    <link>https://icaruslucifer.github.io/categories/</link>
     <description>Recent content in Categories on 伊卡洛斯</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://39.100.101.231/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://icaruslucifer.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>图像处理</title>
-      <link>http://39.100.101.231/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</link>
+      <link>https://icaruslucifer.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://39.100.101.231/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</guid>
+      <guid>https://icaruslucifer.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</guid>
       <description></description>
     </item>
     
     <item>
       <title>机器人</title>
-      <link>http://39.100.101.231/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/</link>
+      <link>https://icaruslucifer.github.io/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/</link>
       <pubDate>Thu, 30 May 2019 17:01:13 +0800</pubDate>
       
-      <guid>http://39.100.101.231/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/</guid>
+      <guid>https://icaruslucifer.github.io/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/</guid>
       <description></description>
     </item>
     
     <item>
       <title>杂感</title>
-      <link>http://39.100.101.231/categories/%E6%9D%82%E6%84%9F/</link>
+      <link>https://icaruslucifer.github.io/categories/%E6%9D%82%E6%84%9F/</link>
       <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://39.100.101.231/categories/%E6%9D%82%E6%84%9F/</guid>
+      <guid>https://icaruslucifer.github.io/categories/%E6%9D%82%E6%84%9F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>深度学习入门</title>
-      <link>http://39.100.101.231/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</link>
+      <link>https://icaruslucifer.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</link>
       <pubDate>Thu, 30 May 2019 16:57:55 +0800</pubDate>
       
-      <guid>http://39.100.101.231/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</guid>
+      <guid>https://icaruslucifer.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/</guid>
       <description></description>
     </item>
     
