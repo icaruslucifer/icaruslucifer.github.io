@@ -63,4 +63,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://icaruslucifer.github.io/sitemap.xml
+Sitemap: http://39.100.101.231/sitemap.xml

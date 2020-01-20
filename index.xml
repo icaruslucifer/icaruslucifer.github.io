@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>伊卡洛斯 on 伊卡洛斯</title>
-    <link>https://icaruslucifer.github.io/</link>
+    <link>http://39.100.101.231/</link>
     <description>Recent content in 伊卡洛斯 on 伊卡洛斯</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,10 +11,10 @@
     
     <item>
       <title>ROS坑</title>
-      <link>https://icaruslucifer.github.io/blog/ros_keng/</link>
+      <link>http://39.100.101.231/blog/ros_keng/</link>
       <pubDate>Thu, 30 May 2019 17:01:13 +0800</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/ros_keng/</guid>
+      <guid>http://39.100.101.231/blog/ros_keng/</guid>
       <description>
 
 &lt;h2 id=&#34;ros-launch-文件中-param-设置的坑&#34;&gt;ROS launch 文件中 param 设置的坑&lt;/h2&gt;
@@ -68,10 +68,10 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES=&amp;ldquo;beginner_tutorials&amp;rdquo;
     
     <item>
       <title>tensorflow-gpu 安装教程</title>
-      <link>https://icaruslucifer.github.io/blog/gpu_tensorflow/</link>
+      <link>http://39.100.101.231/blog/gpu_tensorflow/</link>
       <pubDate>Thu, 30 May 2019 16:57:55 +0800</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/gpu_tensorflow/</guid>
+      <guid>http://39.100.101.231/blog/gpu_tensorflow/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -148,7 +148,7 @@ $ sudo make clean &amp;amp;&amp;amp; make
 $ ./fluidsGL
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets/20180522134849230.png&#34; alt=&#34;cuda测试&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://39.100.101.231/blog/assets/20180522134849230.png&#34; alt=&#34;cuda测试&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;出现如下页面则代表cuda安装成功。&lt;/p&gt;
 
@@ -219,10 +219,10 @@ physical_device_desc: &amp;quot;device: 0, name: GeForce GTX 1050, pci bus id: 0
     
     <item>
       <title>TX2上安装tensorflow</title>
-      <link>https://icaruslucifer.github.io/blog/tx2_tensorflow/</link>
+      <link>http://39.100.101.231/blog/tx2_tensorflow/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/tx2_tensorflow/</guid>
+      <guid>http://39.100.101.231/blog/tx2_tensorflow/</guid>
       <description>
 
 &lt;p&gt;#&lt;/p&gt;
@@ -266,10 +266,10 @@ sudo dpkg -i libcudnn6-dev_6.0.21-1+cuda8.0_arm64.deb
     
     <item>
       <title>二维码识别与定位</title>
-      <link>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</link>
+      <link>http://39.100.101.231/blog/er-wei-ma-shi-bie-yu-ding-wei/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/er-wei-ma-shi-bie-yu-ding-wei/</guid>
+      <guid>http://39.100.101.231/blog/er-wei-ma-shi-bie-yu-ding-wei/</guid>
       <description>
 
 &lt;h2 id=&#34;运行环境&#34;&gt;运行环境&lt;/h2&gt;
@@ -282,7 +282,7 @@ sudo dpkg -i libcudnn6-dev_6.0.21-1+cuda8.0_arm64.deb
 
 &lt;h2 id=&#34;二维码&#34;&gt;二维码&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets/61d238c7jw1f33jbzaxkxj21e00xcq5b.jpg&#34; alt=&#34;二维码&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://39.100.101.231/blog/assets/61d238c7jw1f33jbzaxkxj21e00xcq5b.jpg&#34; alt=&#34;二维码&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;QRCode 主要由以下部分组成：
   - 1 - Position Detection Pattern：位于三个角落，可以快速检测二维码位置。
@@ -308,7 +308,7 @@ zxing的识别效果比zbar好，识别效果排名：微信&amp;gt;支付宝&am
 下载地址：&lt;a href=&#34;http://mvnrepository.com/artifact/com.beust/jcommander/1.48&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;http://mvnrepository.com/artifact/com.beust/jcommander/1.48&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;下载之后放在目录下：
-&lt;img src=&#34;https://icaruslucifer.github.io/blog/assets/A828219A-866E-4FFC-8D0F-E6F6A1FA361A.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;http://39.100.101.231/blog/assets/A828219A-866E-4FFC-8D0F-E6F6A1FA361A.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;下面需要打开&lt;strong&gt;init&lt;/strong&gt;.py文件，修改里面的内容&lt;/p&gt;
 
@@ -517,10 +517,10 @@ if __name__ == &#39;__main__&#39;:
     
     <item>
       <title>如鱼得水--docker&#43;pycharm搞定深度学习头疼的环境部署</title>
-      <link>https://icaruslucifer.github.io/blog/docker_ai/</link>
+      <link>http://39.100.101.231/blog/docker_ai/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/docker_ai/</guid>
+      <guid>http://39.100.101.231/blog/docker_ai/</guid>
       <description>
 
 &lt;p&gt;现在深度学习的框架很多，tensorflow，caffe，pytorch，mxnet，大家都在比较哪个好用，哪个好部署，tensorflow部署很方便，caffe部署坑比较多，网上都有caffe远程部署的生意做了。最近也在学习深度学习，接触docker这个东西，感觉很好用，后来看到不少也是用docker的，顺着这条路一直查找，从docker到nvidia-docker，到pytorch，再到pycharm，也有些小坑，现在总结出来提供给大家。&lt;/p&gt;
@@ -647,10 +647,10 @@ docker有个不好的地方是，你安装了东西或者运行程序产生了�
     
     <item>
       <title>快速实现人脸识别和语音播报</title>
-      <link>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</link>
+      <link>http://39.100.101.231/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</guid>
+      <guid>http://39.100.101.231/blog/kuai-su-shi-xian-ren-lian-shi-bie-he-yu-yin-bo-bao/</guid>
       <description>
 
 &lt;p&gt;主要思路是，通过opencv打开摄像头，获取图片，利用百度AI开放平台的人脸检测接口（事先会在百度后台录入人脸信息），识别出人脸信息，然后利用科大讯飞的在线语音合成接口，将识别到的内容转换成自己想要播放的音频，通过系统api播放音频。&lt;/p&gt;
@@ -1034,10 +1034,10 @@ if __name__ == &#39;__main__&#39;:
     
     <item>
       <title>阿里云部署flask，调用tensorflow跑模型</title>
-      <link>https://icaruslucifer.github.io/blog/tensorflow-flask/</link>
+      <link>http://39.100.101.231/blog/tensorflow-flask/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/tensorflow-flask/</guid>
+      <guid>http://39.100.101.231/blog/tensorflow-flask/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -1135,10 +1135,10 @@ if __name__ == &#39;__main__&#39;:
     
     <item>
       <title></title>
-      <link>https://icaruslucifer.github.io/blog/readme/</link>
+      <link>http://39.100.101.231/blog/readme/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://icaruslucifer.github.io/blog/readme/</guid>
+      <guid>http://39.100.101.231/blog/readme/</guid>
       <description>&lt;p&gt;blog 提交方法
 1.现在content目录下新增md文件，content 是一个github仓库
 2. 执行hugo server 命令 看效果
