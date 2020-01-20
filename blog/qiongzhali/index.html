@@ -9,9 +9,9 @@
   
   
   
-  <link rel="prev" href="http://39.100.101.231/blog/gpu_tensorflow/" />
-  <link rel="next" href="http://39.100.101.231/blog/moonsix/" />
-  <link rel="canonical" href="http://39.100.101.231/blog/ros_keng/" />
+  <link rel="prev" href="http://39.100.101.231/blog/moonsix/" />
+  
+  <link rel="canonical" href="http://39.100.101.231/blog/qiongzhali/" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -22,10 +22,10 @@
   <title>
        
        
-           ROS坑 | 伊卡洛斯
+           《穷查理宝典》摘录 | 伊卡洛斯
        
   </title>
-  <meta name="title" content="ROS坑 | 伊卡洛斯">
+  <meta name="title" content="《穷查理宝典》摘录 | 伊卡洛斯">
     
   
   <link rel="stylesheet" href="/font/iconfont.css">
@@ -44,28 +44,21 @@
          "@id": "http://39.100.101.231"
     },
     "articleSection" : "blog",
-    "name" : "ROS坑",
-    "headline" : "ROS坑",
-    "description" : "ROS launch 文件中 param 设置的坑 launch 文件中 param 一般不需要配置类型，但所有参数值都会使用双引号包含，会自动进行类型推导，规则如下（参见 roslaunch/XML/param）
- 数字带有 &lsquo;.&rsquo; 的是浮点数，其余是整数。 &ldquo;true&rdquo; 和 &ldquo;false&rdquo; 是布尔量，大小写不敏感。 其他所有值都认为是字符串。  其中一个坑就是，如果一个值类型本来是字符串，但是值是数字，那么会自动推导成数字，导致程序解析时无法获取到想要的字符串的问题。
-解决方法，在参数属性中配置 type 字段：
- str: 字符串 int: 整形 double: 浮点 bool: 布尔量 yaml: yaml 内容  ROS 编写urdf  有时候明明代码编写没问题，但是运行之后显示“No transform form 【A】 to 【B】” 可是尝试以下方式： 这个时候需要看看是不是xml编写不规范，去一些xml格式网站把内容格式化； 安装 sudo apt-get install unicode ； 重启rviz，roscore  ROS 编译含msg的工程不通过 几种方法
- catkin_make -j1
- 先单独编译msg包 catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;
- 先单独编译msg包
-  catkin_make xfuture_msgs_gencpp",
+    "name" : "《穷查理宝典》摘录",
+    "headline" : "《穷查理宝典》摘录",
+    "description" : " 《穷查理宝典》摘录  正直的行为是好的，并不是因为它能带来好处；它们能够带来好处，是因为它们是好的 介绍新观念倒不是很难，难的是清楚哪些旧观念。 有些制度应该故意制定得对个体不公平，因为这样的话它们整体上对我们大家会更加公平。 如果你想要说服别人，要诉诸利益，而非诉诸理性。 在只有铁锤的人看来，每个问题都非常像一颗钉子。 一切应该尽可能简单，但不能过于简单。 祖母的规定：必须先吃完胡萝卜，然后才准吃甜点。 大公司并非总是赢家，企业变大之后，就会出现官僚机构的作风。 如果从一开始就做一些可行的事情，而不是去做一些不可行的事情，你成功的几率要大得多。 我从来不让上学影响我的学习。 库克船长让船员吃泡菜的故事。 实际上，你应该弄清楚你知道什么，不知道什么，在生活中，还有什么比这个更有用的呢？  ",
     "inLanguage" : "en-us",
     "author" : "伊卡洛斯",
     "creator" : "伊卡洛斯",
     "publisher": "伊卡洛斯",
     "accountablePerson" : "伊卡洛斯",
     "copyrightHolder" : "伊卡洛斯",
-    "copyrightYear" : "2019",
-    "datePublished": "2019-05-30 17:01:13 &#43;0800 CST",
-    "dateModified" : "2019-05-30 17:01:13 &#43;0800 CST",
-    "url" : "http://39.100.101.231/blog/ros_keng/",
-    "wordCount" : "61",
-    "keywords" : [ "ROS", "伊卡洛斯"]
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-20 00:00:00 &#43;0000 UTC",
+    "dateModified" : "2020-01-20 00:00:00 &#43;0000 UTC",
+    "url" : "http://39.100.101.231/blog/qiongzhali/",
+    "wordCount" : "13",
+    "keywords" : [ "读书", "伊卡洛斯"]
 }
 </script>
 
@@ -123,16 +116,16 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">ROS坑</h1>
+        <h1 class="post-title" itemprop="name headline">《穷查理宝典》摘录</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="http://39.100.101.231" rel="author">伊卡洛斯</a> with ♥ 
                 <span class="post-time">
-                on <time datetime=2019-05-30 itemprop="datePublished">May 30, 2019</time>
+                on <time datetime=2020-01-20 itemprop="datePublished">January 20, 2020</time>
                 </span>
                 in
                 <i class="iconfont icon-folder"></i>
                 <span class="post-category">
-                        <a href="http://39.100.101.231/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/"> 机器人 </a>
+                        <a href="http://39.100.101.231/categories/%E6%9D%82%E6%84%9F/"> 杂感 </a>
                         
                 </span>
         </div>
@@ -155,52 +148,22 @@
 
           
 
-<h2 id="ros-launch-文件中-param-设置的坑">ROS launch 文件中 param 设置的坑</h2>
-
-<p>launch 文件中 param 一般不需要配置类型，但所有参数值都会使用双引号包含，会自动进行类型推导，规则如下（参见 <a href="http://wiki.ros.org/roslaunch/XML/param" rel="nofollow noreferrer" target="_blank">roslaunch/XML/param</a>）</p>
-
-<ol>
-<li>数字带有 &lsquo;.&rsquo; 的是浮点数，其余是整数。</li>
-<li>&ldquo;true&rdquo; 和 &ldquo;false&rdquo; 是布尔量，大小写不敏感。</li>
-<li>其他所有值都认为是字符串。</li>
-</ol>
-
-<p>其中一个坑就是，如果一个值类型本来是字符串，但是值是数字，那么会自动推导成数字，导致程序解析时无法获取到想要的字符串的问题。</p>
-
-<p>解决方法，在参数属性中配置 <code>type</code> 字段：</p>
+<h3 id="穷查理宝典-摘录">《穷查理宝典》摘录</h3>
 
 <ul>
-<li><code>str</code>: 字符串</li>
-<li><code>int</code>: 整形</li>
-<li><code>double</code>: 浮点</li>
-<li><code>bool</code>: 布尔量</li>
-<li><code>yaml</code>: yaml 内容</li>
+<li>正直的行为是好的，并不是因为它能带来好处；它们能够带来好处，是因为它们是好的</li>
+<li>介绍新观念倒不是很难，难的是清楚哪些旧观念。</li>
+<li>有些制度应该故意制定得对个体不公平，因为这样的话它们整体上对我们大家会更加公平。</li>
+<li>如果你想要说服别人，要诉诸利益，而非诉诸理性。</li>
+<li>在只有铁锤的人看来，每个问题都非常像一颗钉子。</li>
+<li>一切应该尽可能简单，但不能过于简单。</li>
+<li>祖母的规定：必须先吃完胡萝卜，然后才准吃甜点。</li>
+<li>大公司并非总是赢家，企业变大之后，就会出现官僚机构的作风。</li>
+<li>如果从一开始就做一些可行的事情，而不是去做一些不可行的事情，你成功的几率要大得多。</li>
+<li>我从来不让上学影响我的学习。</li>
+<li>库克船长让船员吃泡菜的故事。</li>
+<li>实际上，你应该弄清楚你知道什么，不知道什么，在生活中，还有什么比这个更有用的呢？</li>
 </ul>
-
-<h2 id="ros-编写urdf">ROS 编写urdf</h2>
-
-<ul>
-<li>有时候明明代码编写没问题，但是运行之后显示“No transform form 【A】 to 【B】”
-可是尝试以下方式：</li>
-<li>这个时候需要看看是不是xml编写不规范，去一些xml格式网站把内容格式化；</li>
-<li>安装 sudo apt-get install unicode ；</li>
-<li>重启rviz，roscore</li>
-</ul>
-
-<h2 id="ros-编译含msg的工程不通过">ROS 编译含msg的工程不通过</h2>
-
-<p>几种方法</p>
-
-<ol>
-<li><p>catkin_make -j1</p></li>
-
-<li><p>先单独编译msg包
-catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;</p></li>
-
-<li><p>先单独编译msg包</p></li>
-</ol>
-
-<p>catkin_make xfuture_msgs_gencpp</p>
 
     </div>
 
@@ -215,7 +178,7 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;</p></li
              
             <p class="copyright-item">
                     <span>Link:</span>
-                    <a href=http://39.100.101.231/blog/ros_keng/>http://39.100.101.231/blog/ros_keng/</span>
+                    <a href=http://39.100.101.231/blog/qiongzhali/>http://39.100.101.231/blog/qiongzhali/</span>
             </p>
             
              
@@ -231,8 +194,8 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;</p></li
             <section>
             <i class="iconfont icon-tag"></i>Tag(s): 
             
-            <span class="tag"><a href="http://39.100.101.231/tags/ros/">
-                    #ROS</a></span>
+            <span class="tag"><a href="http://39.100.101.231/tags/%E8%AF%BB%E4%B9%A6/">
+                    #读书</a></span>
             
             </section>
         
@@ -244,10 +207,8 @@ catkin_make -DCATKIN_WHITELIST_PACKAGES=&ldquo;beginner_tutorials&rdquo;</p></li
 
     <div class="post-nav">
         
-        <a href="http://39.100.101.231/blog/gpu_tensorflow/" class="prev" rel="prev" title="tensorflow-gpu 安装教程"><i class="iconfont icon-left"></i>&nbsp;tensorflow-gpu 安装教程</a>
+        <a href="http://39.100.101.231/blog/moonsix/" class="prev" rel="prev" title="读《月亮与六便士》有感"><i class="iconfont icon-left"></i>&nbsp;读《月亮与六便士》有感</a>
          
-        
-        <a href="http://39.100.101.231/blog/moonsix/" class="next" rel="next" title="读《月亮与六便士》有感">读《月亮与六便士》有感&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 
